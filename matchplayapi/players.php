@@ -1,5 +1,10 @@
 <html>
 <head>
+
+    <?php
+        include('head.php')
+    ?>
+
 <?php
 
 if (isset($_GET['matchplaylink'])) {
