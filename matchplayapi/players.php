@@ -7,7 +7,7 @@ $matchplaylink = $_GET['matchplaylink'];
 } else {
 $notice = "No MatchPlay link provided.<p>The URL should include a valid MatchPlay.events tournament code.  For example:<br>
 <i>players.php?matchplaylink=summerclassic2019</i><br>
-<i>players.php?matchplaylink=0bbr3</i>
+<i>players.php?matchplaylink=0bbr3</i><p>
 You can also change the font size by adding the fontsize variable:
 <i>players.php?matchplaylink=summerclassic2019&fontsize=36</i><p>"
 
