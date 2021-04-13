@@ -203,6 +203,10 @@ echo "<td colspan=2><b><font color='blue'>Blue Bumpers</font></b></td>";
 
 echo "</tr>";
 
+$points1total = 0;
+$points2total = 0;
+$points3total = 0;
+$points4total = 0;
 
 while($i <= $countcheckcounter){
 
@@ -218,73 +222,15 @@ $pointcheck2 = array_search($array_test[$i][name2], array_column($obj_standings,
 $pointcheck3 = array_search($array_test[$i][name3], array_column($obj_standings,'name'));
 $pointcheck4 = array_search($array_test[$i][name4], array_column($obj_standings,'name'));
 
-echo "<tr>";
+if($pointcheck1 === false){$points1 = 0;} else {$points1 = $obj_standings[$pointcheck1][points];}
+if($pointcheck2 === false){$points2 = 0;} else {$points2 = $obj_standings[$pointcheck2][points];}
+if($pointcheck3 === false){$points3 = 0;} else {$points3 = $obj_standings[$pointcheck3][points];}
+if($pointcheck4 === false){$points4 = 0;} else {$points4 = $obj_standings[$pointcheck4][points];}
 
-echo "<td>Group #" . $iplus . "</td>";
-echo "<td>" . $array_test[$i][name1] . "</td>";
-echo "<td>" . $pointcheck1 . '<br>isset' . isset($pointcheck1) . '<br>is_null' . is_null($pointcheck1) . '<br>empty' . empty($pointcheck1) ."</td>";
-echo "<td>" . $array_test[$i][name2] . "</td>";
-echo "<td>" . $pointcheck2 . "</td>";
-echo "<td>" . $array_test[$i][name3] . "</td>";
-echo "<td>" . $pointcheck3 . "</td>";
-echo "<td>" . $array_test[$i][name4] . "</td>";
-echo "<td>" . $pointcheck4 . "</td>";
-
-echo "</tr>";
-
-
-
-if($pointcheck1 == false){$points1 = 0;} else {$points1 = $obj_standings[$pointcheck1][points];}
-if($pointcheck2 == false){$points2 = 0;} else {$points2 = $obj_standings[$pointcheck2][points];}
-if($pointcheck3 == false){$points3 = 0;} else {$points3 = $obj_standings[$pointcheck3][points];}
-if($pointcheck4 == false){$points4 = 0;} else {$points4 = $obj_standings[$pointcheck4][points];}
-
-
-echo "<tr>";
-echo "<td>";
-
-$var1 = '';
-$var2 = 0;
-$var3 = NULL;
-$var4 = FALSE;
-$var5 = array();
-
-// Testing the variables
-if(empty($var1)){
-    echo 'This line is printed, because the $var1 is empty.';
-}
-echo "<br>";
-
-if(empty($var2)){
-    echo 'This line is printed, because the $var2 is empty.';
-}
-echo "<br>";
-
-if(empty($var3)){
-    echo 'This line is printed, because the $var3 is empty.';
-}
-echo "<br>";
-
-if(empty($var4)){
-    echo 'This line is printed, because the $var4 is empty.';
-}
-echo "<br>";
-
-if(empty($var5)){
-    echo 'This line is printed, because the $var5 is empty.';
-}
-echo "<br>";
-
-if(empty($pointcheck1)){
-    echo 'This line is printed, because the $pointcheck1 is empty.';
-}
-
-
-
-echo "</td>";
-echo "</tr>";
-
-
+$points1total = $points1total + $points1;
+$points2total = $points2total + $points2;
+$points3total = $points3total + $points3;
+$points4total = $points4total + $points4;
 
 echo "<tr>";
 
@@ -303,6 +249,20 @@ echo "</tr>";
     $i++;
 
 }
+
+echo "<tr>";
+
+echo "<td><b>Totals</b></td>";
+echo "<td><b><font color='red'>Red Replays</font></b></td>";
+echo "<td><b>" . $points1total . "</b></td>";
+echo "<td><b><font color='teal'>Teal Tilt Bobs</font></b></td>";
+echo "<td><b>" . $points2total . "</b></td>";
+echo "<td><b><font color='orange'>Orange Orbits</font></b></td>";
+echo "<td><b>" . $points3total . "</b></td>";
+echo "<td><b><font color='blue'>Blue Bumpers</font></b></td>";
+echo "<td><b>" . $points4total . "</b></td>";
+
+echo "</tr>";
 
 echo "</table>";
 
