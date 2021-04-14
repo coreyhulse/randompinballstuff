@@ -32,7 +32,7 @@ $obj_standings = json_decode($json_standings, TRUE);
 if (isset($_GET['fontsize'])) {
 $fontsize = $_GET['fontsize'];
 } else {
-$fontsize = 48;
+$fontsize = 24;
 }
 
 $tournament = $obj->name;
@@ -43,7 +43,7 @@ $url_label = $obj->url_label;
 
 <title><?php
 echo $tournament;
-?> Match Play Participants</title>
+?> MatchPlay Pinball Teams</title>
 
 
         <style>
@@ -73,7 +73,7 @@ $countcheck = count($obj_results[0][games]);
 
 echo "<hr>";
 
-echo "<b>Games Looped: " . $countcheck . "</b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p><hr>";
+echo "<b>MatchPlay Pinball Teams: </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
 
 $countcheckcounter = $countcheck - 1;
 
@@ -123,51 +123,36 @@ while($i <= $countcheckcounter){
 
       $namecheck = $obj_results[0][games][$i][players][0][name];
       $name0 = $obj_results[0][games][$i][players][$player0][name];
+      if(empty($name0)){$name0 = 'Absent Pinballer';} else {}
       $sort0 = $obj_results[0][games][$i][players][$player0][player_id];
       $mod0 = fmod($sort0,10) + 0.1;
       $name1 = $obj_results[0][games][$i][players][$player1][name];
+      if(empty($name1)){$name1 = 'Absent Pinballer';} else {}
       $sort1 = $obj_results[0][games][$i][players][$player1][player_id];
       $mod1 = fmod($sort1,10) + 0.2;
       $name2 = $obj_results[0][games][$i][players][$player2][name];
+      if(empty($name2)){$name2 = 'Absent Pinballer';} else {}
       $sort2 = $obj_results[0][games][$i][players][$player2][player_id];
       $mod2 = fmod($sort2,10) + 0.3;
       $name3 = $obj_results[0][games][$i][players][$player3][name];
+      if(empty($name3)){$name3 = 'Absent Pinballer';} else {}
       $sort3 = $obj_results[0][games][$i][players][$player3][player_id];
       $mod3 = fmod($sort3,10) + 0.4;
 
-      print $name0 . "<br>";
-      print $sort0 . "<br>";
-      print $mod0 . "<br>";
-      print $player0 . "<br>";
-      print $name1 . "<br>";
-      print $sort1 . "<br>";
-      print $mod1 . "<br>";
-      print $player1 . "<br>";
-      print $name2 . "<br>";
-      print $sort2 . "<br>";
-      print $mod2 . "<br>";
-      print $player2 . "<br>";
-      print $name3 . "<br>";
-      print $sort3 . "<br>";
-      print $mod3 . "<br>";
-      print $player3 . "<br>";
-      print '<p>';
-
-
 
        array_push($array_test,
-         array('namecheck' => $obj_results[0][games][$i][players][0][name],
-               'name1' => $obj_results[0][games][$i][players][$player0][name],
-               'sort1' => $obj_results[0][games][$i][players][$player0][player_id],
+         array('namecheck' => $namecheck,
+               'name1' => $name0,
+               'sort1' => $sort0,
                'team1' => 1,
-               'name2' => $obj_results[0][games][$i][players][$player1][name],
-               'sort2' => $obj_results[0][games][$i][players][$player1][player_id],
+               'name2' => $name1,
+               'sort2' => $sort1,
                'team2' => 2,
-               'name3' => $obj_results[0][games][$i][players][$player2][name],
-               'sort3' => $obj_results[0][games][$i][players][$player2][player_id],
+               'name3' => $name2,
+               'sort3' => $sort2,
                'team3' => 3,
-               'name4' => $obj_results[0][games][$i][players][$player3][name],
-               'sort4' => $obj_results[0][games][$i][players][$player3][player_id],
+               'name4' => $name3,
+               'sort4' => $sort3,
                'team4' => 4
               )
 
@@ -179,17 +164,13 @@ while($i <= $countcheckcounter){
     $i++;
 }
 
-echo "printing the array to see test results:<br>";
-
-print_r($array_test);
-
 $countcheck = count($array_test);
 
 $countcheckcounter = $countcheck - 1;
 
 $i = 0;
 
-echo "<hr>Example Table:<br>";
+echo "<hr>Standings Table:<br>";
 
 echo "<table border=1>";
 
@@ -226,6 +207,11 @@ if($pointcheck1 === false){$points1 = 0;} else {$points1 = $obj_standings[$point
 if($pointcheck2 === false){$points2 = 0;} else {$points2 = $obj_standings[$pointcheck2][points];}
 if($pointcheck3 === false){$points3 = 0;} else {$points3 = $obj_standings[$pointcheck3][points];}
 if($pointcheck4 === false){$points4 = 0;} else {$points4 = $obj_standings[$pointcheck4][points];}
+
+if($array_test[$i][name1] === 'Absent Pinballer'){$points1 = 16;} else {}
+if($array_test[$i][name2] === 'Absent Pinballer'){$points2 = 16;} else {}
+if($array_test[$i][name3] === 'Absent Pinballer'){$points3 = 16;} else {}
+if($array_test[$i][name4] === 'Absent Pinballer'){$points4 = 16;} else {}
 
 $points1total = $points1total + $points1;
 $points2total = $points2total + $points2;
