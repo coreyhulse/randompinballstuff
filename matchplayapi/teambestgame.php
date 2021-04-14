@@ -181,7 +181,7 @@ $countcheckcounter = $countcheck - 1;
 
 $i = 0;
 
-print("<pre>".print_r($array_test,true)."</pre>");
+//print("<pre>".print_r($array_test,true)."</pre>");
 
 // old table code
 
@@ -191,11 +191,13 @@ echo "<table border=1>";
 
 echo "<tr>";
 
-echo "<td><b>Group #</b></td>";
-echo "<td colspan=2><b><font color='red'>Red Replays</font></b></td>";
-echo "<td colspan=2><b><font color='teal'>Teal Tilt Bobs</font></b></td>";
-echo "<td colspan=2><b><font color='orange'>Orange Orbits</font></b></td>";
-echo "<td colspan=2><b><font color='blue'>Blue Bumpers</font></b></td>";
+echo "<td><b>Game Name</b></td>";
+echo "<td><b>Rank</b></td>";
+echo "<td><b>Player 1</b></td>";
+echo "<td><b>Player 2</b></td>";
+echo "<td><b>Player 3</b></td>";
+echo "<td><b>Player 4</b></td>";
+echo "<td><b>Total Team Score</b></td>";
 
 echo "</tr>";
 
@@ -203,6 +205,7 @@ $points1total = 0;
 $points2total = 0;
 $points3total = 0;
 $points4total = 0;
+$teampointstotal = 0;
 
 while($i <= $countcheckcounter){
 
@@ -212,58 +215,56 @@ $points1 = 0;
 $points2 = 0;
 $points3 = 0;
 $points4 = 0;
-
-$pointcheck1 = array_search($array_test[$i][name1], array_column($obj_standings,'name'));
-$pointcheck2 = array_search($array_test[$i][name2], array_column($obj_standings,'name'));
-$pointcheck3 = array_search($array_test[$i][name3], array_column($obj_standings,'name'));
-$pointcheck4 = array_search($array_test[$i][name4], array_column($obj_standings,'name'));
-
-if($pointcheck1 === false){$points1 = 0;} else {$points1 = $obj_standings[$pointcheck1][points];}
-if($pointcheck2 === false){$points2 = 0;} else {$points2 = $obj_standings[$pointcheck2][points];}
-if($pointcheck3 === false){$points3 = 0;} else {$points3 = $obj_standings[$pointcheck3][points];}
-if($pointcheck4 === false){$points4 = 0;} else {$points4 = $obj_standings[$pointcheck4][points];}
-
-if($array_test[$i][name1] === 'Absent Pinballer'){$points1 = 16;} else {}
-if($array_test[$i][name2] === 'Absent Pinballer'){$points2 = 16;} else {}
-if($array_test[$i][name3] === 'Absent Pinballer'){$points3 = 16;} else {}
-if($array_test[$i][name4] === 'Absent Pinballer'){$points4 = 16;} else {}
+$teampoints = 0;
 
 $points1total = $points1total + $points1;
 $points2total = $points2total + $points2;
 $points3total = $points3total + $points3;
 $points4total = $points4total + $points4;
 
-echo "<tr>";
 
-echo "<td>Group #" . $iplus . "</td>";
+$gamecheck = $array_test[$i][arenaname];
+
+if($gamecheck !== $gamecheckprior)
+{
+  if($tablecolor === '#dddddd')
+  {$tablecolor = '#ffffff';}
+    else
+  {$tablecolor = '#dddddd';}
+
+
+  $gamerank = 1;
+}
+else {}
+
+echo "<tr bgcolor=" . $tablecolor . ">";
+
+echo "<td rowspan=2>Game: " . $array_test[$i][arenaname] . "</td>";
+echo "<td rowspan=2>" . $gamerank . "</td>";
 echo "<td>" . $array_test[$i][name1] . "</td>";
-echo "<td>" . $points1 . "</td>";
 echo "<td>" . $array_test[$i][name2] . "</td>";
-echo "<td>" . $points2 . "</td>";
 echo "<td>" . $array_test[$i][name3] . "</td>";
-echo "<td>" . $points3 . "</td>";
 echo "<td>" . $array_test[$i][name4] . "</td>";
-echo "<td>" . $points4 . "</td>";
+echo "<td rowspan=2 align=right><b>" . $array_test[$i][teamgamescore] . "</b></td>";
 
 echo "</tr>";
+
+echo "<tr bgcolor=" . $tablecolor . ">";
+
+echo "<td align=right>" . $array_test[$i][score1] . "</td>";
+echo "<td align=right>" . $array_test[$i][score2] . "</td>";
+echo "<td align=right>" . $array_test[$i][score3] . "</td>";
+echo "<td align=right>" . $array_test[$i][score4] . "</td>";
+
+
+echo "</tr>";
+
+    $gamecheckprior = $gamecheck;
 
     $i++;
+    $gamerank++;
 
 }
-
-echo "<tr>";
-
-echo "<td><b>Totals</b></td>";
-echo "<td><b><font color='red'>Red Replays</font></b></td>";
-echo "<td><b>" . $points1total . "</b></td>";
-echo "<td><b><font color='teal'>Teal Tilt Bobs</font></b></td>";
-echo "<td><b>" . $points2total . "</b></td>";
-echo "<td><b><font color='orange'>Orange Orbits</font></b></td>";
-echo "<td><b>" . $points3total . "</b></td>";
-echo "<td><b><font color='blue'>Blue Bumpers</font></b></td>";
-echo "<td><b>" . $points4total . "</b></td>";
-
-echo "</tr>";
 
 echo "</table>";
 
