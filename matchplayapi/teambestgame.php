@@ -5,6 +5,8 @@
         include('head.php')
     ?>
 
+<meta http-equiv="refresh" content="60">
+
 <?php
 
 if (isset($_GET['matchplaylink'])) {
@@ -38,6 +40,8 @@ $fontsize = 24;
 
 $tournament = $obj->name;
 $url_label = $obj->url_label;
+$games_per_round = $obj->games_per_round;
+$round_status = $obj_results[0][status];
 
 
 ?>
@@ -82,11 +86,11 @@ $names = array();
 
 $array_test = array();
 
+$array_total = array();
+
 $i = 0;
 
 $igroup = 0;
-
-echo '<hr>';
 
 while($i <= $countcheckcounter){
 
@@ -119,6 +123,7 @@ while($i <= $countcheckcounter){
         $score3 = floor(($score0 + $score1 + $score2)/3);
       } else {}
       $teamgamescore = $score0 + $score1 + $score2 + $score3;
+      $groupname = $name0 . ' / ' . $name1 . ' / ' . $name2  . ' / ' . $name3;
 
 
 
@@ -146,6 +151,7 @@ while($i <= $countcheckcounter){
                'results4_check' => $results3_check,
                'score4' => $score3,
                'teamgamescore' => $teamgamescore,
+               'groupname' => $groupname,
               )
 
       );
@@ -181,7 +187,7 @@ $countcheckcounter = $countcheck - 1;
 
 $i = 0;
 
-//print("<pre>".print_r($array_test,true)."</pre>");
+
 
 // old table code
 
@@ -194,10 +200,14 @@ echo "<tr>";
 echo "<td><b>Game Name</b></td>";
 echo "<td><b>Rank</b></td>";
 echo "<td><b>Player 1</b></td>";
+echo "<td><b>Score</b></td>";
 echo "<td><b>Player 2</b></td>";
+echo "<td><b>Score</b></td>";
 echo "<td><b>Player 3</b></td>";
+echo "<td><b>Score</b></td>";
 echo "<td><b>Player 4</b></td>";
-echo "<td><b>Total Team Score</b></td>";
+echo "<td><b>Score</b></td>";
+echo "<td><b>Total<br>Team<br>Score</b></td>";
 
 echo "</tr>";
 
@@ -234,30 +244,71 @@ if($gamecheck !== $gamecheckprior)
 
 
   $gamerank = 1;
+
+  array_push($array_total,
+    array($array_test[$i][groupname] => 1,
+      )
+    );
+
+    // echo "</table>";
+    //
+    // echo "<table border=1>";
+    //
+    // echo "<tr>";
+    //
+    // echo "<td><b>Game Name</b></td>";
+    // echo "<td><b>Rank</b></td>";
+    // echo "<td><b>Player 1</b></td>";
+    // echo "<td><b>Player 2</b></td>";
+    // echo "<td><b>Player 3</b></td>";
+    // echo "<td><b>Player 4</b></td>";
+    // echo "<td><b>Total<br>Team<br>Score</b></td>";
+    //
+    // echo "</tr>";
+
+
+
 }
 else {}
 
 echo "<tr bgcolor=" . $tablecolor . ">";
 
-echo "<td rowspan=2>Game: " . $array_test[$i][arenaname] . "</td>";
-echo "<td rowspan=2>" . $gamerank . "</td>";
+echo "<td>Game: " . $array_test[$i][arenaname] . "</td>";
+echo "<td>" . $gamerank . "</td>";
 echo "<td>" . $array_test[$i][name1] . "</td>";
+echo "<td align=right>" . number_format($array_test[$i][score1]) . "</td>";
 echo "<td>" . $array_test[$i][name2] . "</td>";
+echo "<td align=right>" . number_format($array_test[$i][score2]) . "</td>";
 echo "<td>" . $array_test[$i][name3] . "</td>";
+echo "<td align=right>" . number_format($array_test[$i][score3]) . "</td>";
 echo "<td>" . $array_test[$i][name4] . "</td>";
-echo "<td rowspan=2 align=right><b>" . $array_test[$i][teamgamescore] . "</b></td>";
+echo "<td align=right>" . number_format($array_test[$i][score4]) . "</td>";
+echo "<td align=right><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
 
 echo "</tr>";
 
-echo "<tr bgcolor=" . $tablecolor . ">";
 
-echo "<td align=right>" . $array_test[$i][score1] . "</td>";
-echo "<td align=right>" . $array_test[$i][score2] . "</td>";
-echo "<td align=right>" . $array_test[$i][score3] . "</td>";
-echo "<td align=right>" . $array_test[$i][score4] . "</td>";
-
-
-echo "</tr>";
+// echo "<tr bgcolor=" . $tablecolor . ">";
+//
+// echo "<td rowspan=2>Game: " . $array_test[$i][arenaname] . "</td>";
+// echo "<td rowspan=2>" . $gamerank . "</td>";
+// echo "<td>" . $array_test[$i][name1] . "</td>";
+// echo "<td>" . $array_test[$i][name2] . "</td>";
+// echo "<td>" . $array_test[$i][name3] . "</td>";
+// echo "<td>" . $array_test[$i][name4] . "</td>";
+// echo "<td rowspan=2 align=right><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
+//
+// echo "</tr>";
+//
+// echo "<tr bgcolor=" . $tablecolor . ">";
+//
+// echo "<td align=right>" . number_format($array_test[$i][score1]) . "</td>";
+// echo "<td align=right>" . number_format($array_test[$i][score2]) . "</td>";
+// echo "<td align=right>" . number_format($array_test[$i][score3]) . "</td>";
+// echo "<td align=right>" . number_format($array_test[$i][score4]) . "</td>";
+//
+//
+// echo "</tr>";
 
     $gamecheckprior = $gamecheck;
 
@@ -266,7 +317,67 @@ echo "</tr>";
 
 }
 
+
 echo "</table>";
+
+
+$sums = array();
+
+foreach ($array_total as $key => $values) {
+    foreach ($values as $label => $count) {
+        // Create a node in the array to store the value
+        if (!array_key_exists($label, $sums)) {
+            $sums[$label] = 0;
+        }
+        // Add the value to the corresponding node
+        $sums[$label] += $count;
+    }
+}
+
+// Sort the array in descending order of values
+arsort($sums);
+
+
+echo "<hr>Team Totals Table:<br>";
+
+echo "<table border=1>";
+
+echo "<tr>";
+
+echo "<td><b>Team</b></td>";
+echo "<td><b>Wins</b></td>";
+
+echo "</tr>";
+
+if($round_status == "completed")
+
+{ foreach ($sums as $label => $count) {
+
+    echo "<tr>";
+
+    echo "<td><b>". $label ."</b></td>";
+    echo "<td><b>". $count ."</b></td>";
+
+    echo "</tr>";
+  }
+}
+else {
+  echo "<tr>";
+
+  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay once finished to see standings.</td>";
+
+  echo "</tr>";
+}
+
+echo "</table>";
+
+
+
+//print("<pre>".print_r($groups,true)."</pre>");
+
+//print("<pre>".print_r($array_test,true)."</pre>");
+
+//print("<pre>".print_r($array_total,true)."</pre>");
 
 
 ?>
