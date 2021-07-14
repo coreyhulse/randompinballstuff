@@ -199,6 +199,7 @@ echo "<tr>";
 
 echo "<td><b>Game Name</b></td>";
 echo "<td><b>Rank</b></td>";
+echo "<td><b>Points</b></td>";
 echo "<td><b>Player 1</b></td>";
 echo "<td><b>Score</b></td>";
 echo "<td><b>Player 2</b></td>";
@@ -244,11 +245,9 @@ if($gamecheck !== $gamecheckprior)
 
 
   $gamerank = 1;
+  $gamepoints = 10;
 
-  array_push($array_total,
-    array($array_test[$i][groupname] => 1,
-      )
-    );
+
 
     // echo "</table>";
     //
@@ -271,10 +270,24 @@ if($gamecheck !== $gamecheckprior)
 }
 else {}
 
+  if(number_format($array_test[$i][teamgamescore]) == 0)
+  {
+    $gameranktable = '?';
+    $gamepointstable = 0;
+  }
+    else
+  {
+    $gameranktable = $gamerank;
+    $gamepointstable = $gamepoints;
+  }
+
+
+
 echo "<tr bgcolor=" . $tablecolor . ">";
 
 echo "<td>Game: " . $array_test[$i][arenaname] . "</td>";
-echo "<td>" . $gamerank . "</td>";
+echo "<td>" . $gameranktable . "</td>";
+echo "<td>" . $gamepointstable . "</td>";
 echo "<td>" . $array_test[$i][name1] . "</td>";
 echo "<td align=right>" . number_format($array_test[$i][score1]) . "</td>";
 echo "<td>" . $array_test[$i][name2] . "</td>";
@@ -287,6 +300,10 @@ echo "<td align=right><b>" . number_format($array_test[$i][teamgamescore]) . "</
 
 echo "</tr>";
 
+array_push($array_total,
+  array($array_test[$i][groupname] => $gamepointstable,
+    )
+  );
 
 // echo "<tr bgcolor=" . $tablecolor . ">";
 //
@@ -314,6 +331,7 @@ echo "</tr>";
 
     $i++;
     $gamerank++;
+    $gamepoints--;
 
 }
 
@@ -342,16 +360,32 @@ echo "<hr>Team Totals Table:<br>";
 
 echo "<table border=1>";
 
+if($round_status == "completed")
+
+{
+  echo "<tr>";
+
+  echo "<td colspan=2>ROUND COMPLETE</td>";
+
+  echo "</tr>";
+
+}
+else {
+  echo "<tr>";
+
+  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
+
+  echo "</tr>";
+}
+
 echo "<tr>";
 
 echo "<td><b>Team</b></td>";
-echo "<td><b>Wins</b></td>";
+echo "<td><b>Points</b></td>";
 
 echo "</tr>";
 
-if($round_status == "completed")
-
-{ foreach ($sums as $label => $count) {
+foreach ($sums as $label => $count) {
 
     echo "<tr>";
 
@@ -360,14 +394,6 @@ if($round_status == "completed")
 
     echo "</tr>";
   }
-}
-else {
-  echo "<tr>";
-
-  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay once finished to see standings.</td>";
-
-  echo "</tr>";
-}
 
 echo "</table>";
 
