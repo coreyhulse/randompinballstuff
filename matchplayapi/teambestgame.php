@@ -78,7 +78,7 @@ $countcheck = count($obj_results[0][games]);
 
 echo "<hr>";
 
-echo "<b>MatchPlay Pinball Teams: </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
+echo "<b>MatchPlay Pinball Teams:<br>" . $tournament . " </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
 
 $countcheckcounter = $countcheck - 1;
 
