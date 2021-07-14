@@ -390,7 +390,7 @@ foreach ($sums as $label => $count) {
     echo "<tr>";
 
     echo "<td><b>". $label ."</b></td>";
-    echo "<td><b>". $count ."</b></td>";
+    echo "<td  align=right><b>". $count ."</b></td>";
 
     echo "</tr>";
   }
