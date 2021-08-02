@@ -270,15 +270,26 @@ if($gamecheck !== $gamecheckprior)
 }
 else {}
 
+  if($gamerank == 1) {$gamepoints = 10;}
+  if($gamerank == 2) {$gamepoints = 7;}
+  if($gamerank == 3) {$gamepoints = 5;}
+  if($gamerank == 4) {$gamepoints = 4;}
+  if($gamerank == 5) {$gamepoints = 3;}
+  if($gamerank == 6) {$gamepoints = 2;}
+  if($gamerank == 7) {$gamepoints = 1;}
+  if($gamerank > 7) {$gamepoints = 0;}
+
   if(number_format($array_test[$i][teamgamescore]) == 0)
   {
     $gameranktable = '?';
     $gamepointstable = 0;
+    $gamegroupcount = 0;
   }
     else
   {
     $gameranktable = $gamerank;
     $gamepointstable = $gamepoints;
+    $gamegroupcount = 1;
   }
 
 
@@ -331,7 +342,7 @@ array_push($array_total,
 
     $i++;
     $gamerank++;
-    $gamepoints--;
+
 
 }
 
@@ -398,16 +409,10 @@ foreach ($sums as $label => $count) {
 echo "</table>";
 
 
-
-//print("<pre>".print_r($groups,true)."</pre>");
-
-//print("<pre>".print_r($array_test,true)."</pre>");
-
-//print("<pre>".print_r($array_total,true)."</pre>");
-
-
 ?>
 <p>
+
+Team Match Play v3.0
 
 
 </div>
