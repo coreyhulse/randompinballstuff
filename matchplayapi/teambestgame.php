@@ -78,7 +78,7 @@ $countcheck = count($obj_results[0][games]);
 
 echo "<hr>";
 
-echo "<b>MatchPlay Pinball Teams: </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
+echo "<b>MatchPlay Pinball Teams:<br>" . $tournament . " </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
 
 $countcheckcounter = $countcheck - 1;
 
@@ -199,6 +199,7 @@ echo "<tr>";
 
 echo "<td><b>Game Name</b></td>";
 echo "<td><b>Rank</b></td>";
+echo "<td><b>Points</b></td>";
 echo "<td><b>Player 1</b></td>";
 echo "<td><b>Score</b></td>";
 echo "<td><b>Player 2</b></td>";
@@ -244,11 +245,9 @@ if($gamecheck !== $gamecheckprior)
 
 
   $gamerank = 1;
+  $gamepoints = 10;
 
-  array_push($array_total,
-    array($array_test[$i][groupname] => 1,
-      )
-    );
+
 
     // echo "</table>";
     //
@@ -271,10 +270,35 @@ if($gamecheck !== $gamecheckprior)
 }
 else {}
 
+  if($gamerank == 1) {$gamepoints = 10;}
+  if($gamerank == 2) {$gamepoints = 7;}
+  if($gamerank == 3) {$gamepoints = 5;}
+  if($gamerank == 4) {$gamepoints = 4;}
+  if($gamerank == 5) {$gamepoints = 3;}
+  if($gamerank == 6) {$gamepoints = 2;}
+  if($gamerank == 7) {$gamepoints = 1;}
+  if($gamerank > 7) {$gamepoints = 0;}
+
+  if(number_format($array_test[$i][teamgamescore]) == 0)
+  {
+    $gameranktable = '?';
+    $gamepointstable = 0;
+    $gamegroupcount = 0;
+  }
+    else
+  {
+    $gameranktable = $gamerank;
+    $gamepointstable = $gamepoints;
+    $gamegroupcount = 1;
+  }
+
+
+
 echo "<tr bgcolor=" . $tablecolor . ">";
 
 echo "<td>Game: " . $array_test[$i][arenaname] . "</td>";
-echo "<td>" . $gamerank . "</td>";
+echo "<td>" . $gameranktable . "</td>";
+echo "<td>" . $gamepointstable . "</td>";
 echo "<td>" . $array_test[$i][name1] . "</td>";
 echo "<td align=right>" . number_format($array_test[$i][score1]) . "</td>";
 echo "<td>" . $array_test[$i][name2] . "</td>";
@@ -287,6 +311,10 @@ echo "<td align=right><b>" . number_format($array_test[$i][teamgamescore]) . "</
 
 echo "</tr>";
 
+array_push($array_total,
+  array($array_test[$i][groupname] => $gamepointstable,
+    )
+  );
 
 // echo "<tr bgcolor=" . $tablecolor . ">";
 //
@@ -315,6 +343,7 @@ echo "</tr>";
     $i++;
     $gamerank++;
 
+
 }
 
 
@@ -342,46 +371,48 @@ echo "<hr>Team Totals Table:<br>";
 
 echo "<table border=1>";
 
-echo "<tr>";
-
-echo "<td><b>Team</b></td>";
-echo "<td><b>Wins</b></td>";
-
-echo "</tr>";
-
 if($round_status == "completed")
 
-{ foreach ($sums as $label => $count) {
+{
+  echo "<tr>";
 
-    echo "<tr>";
+  echo "<td colspan=2>ROUND COMPLETE</td>";
 
-    echo "<td><b>". $label ."</b></td>";
-    echo "<td><b>". $count ."</b></td>";
+  echo "</tr>";
 
-    echo "</tr>";
-  }
 }
 else {
   echo "<tr>";
 
-  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay once finished to see standings.</td>";
+  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
 
   echo "</tr>";
 }
 
+echo "<tr>";
+
+echo "<td><b>Team</b></td>";
+echo "<td><b>Points</b></td>";
+
+echo "</tr>";
+
+foreach ($sums as $label => $count) {
+
+    echo "<tr>";
+
+    echo "<td><b>". $label ."</b></td>";
+    echo "<td  align=right><b>". $count ."</b></td>";
+
+    echo "</tr>";
+  }
+
 echo "</table>";
-
-
-
-//print("<pre>".print_r($groups,true)."</pre>");
-
-//print("<pre>".print_r($array_test,true)."</pre>");
-
-//print("<pre>".print_r($array_total,true)."</pre>");
 
 
 ?>
 <p>
+
+Team Match Play v3.0
 
 
 </div>
