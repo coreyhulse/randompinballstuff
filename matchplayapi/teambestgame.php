@@ -5,9 +5,13 @@
         include('head.php')
     ?>
 
+<!-- Refresh the page once every 60 seconds. -->
+
 <meta http-equiv="refresh" content="60">
 
 <?php
+
+// Parameterize the MatchPlay link if provided in the URL
 
 if (isset($_GET['matchplaylink'])) {
 $matchplaylink = $_GET['matchplaylink'];
@@ -21,6 +25,9 @@ You can also change the font size by adding the fontsize variable:
 ;
 }
 
+// Query the various JSON blobs from MatchPlay
+// Documentation: https://matchplay.events/api-docs/#/Matchplay
+
 $json = file_get_contents('https://matchplay.events/data/tournaments/' . $matchplaylink);
 $obj = json_decode($json);
 $obj_decode = json_decode($json, TRUE);
@@ -31,6 +38,8 @@ $obj_results = json_decode($json_results, TRUE);
 $json_standings = file_get_contents('https://matchplay.events/data/tournaments/' . $matchplaylink . '/standings');
 $obj_standings = json_decode($json_standings, TRUE);
 
+
+// Default font size in the CSS to 24px, or override it.
 
 if (isset($_GET['fontsize'])) {
 $fontsize = $_GET['fontsize'];
@@ -51,6 +60,7 @@ echo $tournament;
 ?> MatchPlay Team Best Game</title>
 
 
+<!-- Stylesheet -->
         <style>
             .my_text
             {
@@ -64,17 +74,17 @@ echo $tournament;
 
 
 <body>
+<!-- Entire body is part of this div class-->
 <div class="my_text">
 
 
 <?php
 
+// In case it's a bad MatchPlay link
 echo $notice;
 
 
 $countcheck = count($obj_results[0][games]);
-
-//print_r($obj_results);
 
 echo "<hr>";
 
@@ -90,6 +100,8 @@ $array_total = array();
 
 $array_games = array();
 
+$array_total_2 = array();
+
 $i = 0;
 
 $igroup = 0;
@@ -102,6 +114,10 @@ while($i <= $countcheckcounter){
 
       $namecheck = $obj_results[0][games][$i][players][0][name];
       $arenaid = $obj_results[0][games][$i][arena_id];
+      $gamestatus = $obj_results[0][games][$i][status];
+      if($gamestatus === 'complete'){
+        $groupcompletegamecount = 1;
+      } else {$groupcompletegamecount = 0;}
       $arenaname_check = array_search($arenaid, array_column($obj_decode[arenas],'arena_id'));
       $arenaname = $obj->arenas[$arenaname_check]->name;
       $name0 = $obj_results[0][games][$i][players][0][name];
@@ -190,6 +206,7 @@ while($i <= $countcheckcounter){
               'results4_check' => $results3_check,
               'score4' => $score3,
               'teamgamescore' => $teamgamescore,
+              'groupcompletegamecount' => $groupcompletegamecount,
               'groupname' => $groupname,
              )
 
@@ -346,6 +363,14 @@ array_push($array_total,
     )
   );
 
+array_push($array_total_2,
+  array('team' => $array_test[$i][groupname],
+        'gamepointstable' => $gamepointstable,
+        'gamegroupcount' => $gamegroupcount,
+        'groupcompletegamecount' => $groupcompletegamecount,
+    )
+  );
+
     $gamecheckprior = $gamecheck;
 
     $i++;
@@ -371,9 +396,88 @@ foreach ($array_total as $key => $values) {
     }
 }
 
+
 // Sort the array in descending order of values
 arsort($sums);
 
+
+
+$sums_2 = array();
+
+$i = 0;
+
+foreach ($array_total_2 as $item) {
+    $key = $item['team'];
+
+    if (!array_key_exists($key, $sums_2)) {
+        $sums_2[$key] = array(
+            'team' => $item['team'],
+            'gamepointstable' => $item['gamepointstable'],
+            'gamegroupcount' => $item['gamegroupcount'],
+            'groupcompletegamecount' => $item['groupcompletegamecount'],
+        );
+    } else {
+        $sums_2[$key]['gamepointstable'] = $sums_2[$key]['gamepointstable'] + $item['gamepointstable'];
+        $sums_2[$key]['gamegroupcount'] = $sums_2[$key]['gamegroupcount'] + $item['gamegroupcount'];
+        $sums_2[$key]['groupcompletegamecount'] = $sums_2[$key]['groupcompletegamecount'] + $item['groupcompletegamecount'];
+    }
+
+}
+
+usort($sums_2, function ($a, $b) {
+    return $b['gamepointstable'] - $a['gamepointstable'];
+});
+
+// Original Team Totals
+
+// echo "<hr>Team Totals Table:<br>";
+//
+// echo "<table border=1>";
+//
+// if($round_status == "completed")
+//
+// {
+//   echo "<tr>";
+//
+//   echo "<td colspan=2>ROUND COMPLETE</td>";
+//
+//   echo "</tr>";
+//
+// }
+// else {
+//   echo "<tr>";
+//
+//   echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
+//
+//   echo "</tr>";
+// }
+//
+// echo "<tr>";
+//
+// echo "<td><b>Team</b></td>";
+// echo "<td><b>Points</b></td>";
+//
+// echo "</tr>";
+//
+// foreach ($sums as $label => $count) {
+//
+//     echo "<tr>";
+//
+//     echo "<td><b>". $label ."</b></td>";
+//     echo "<td  align=right><b>". $count ."</b></td>";
+//
+//     echo "</tr>";
+//   }
+//
+// echo "</table>";
+
+// Updated Team Totals
+
+$countcheck = count($sums_2);
+
+$countcheckcounter = $countcheck - 1;
+
+$i = 0;
 
 echo "<hr>Team Totals Table:<br>";
 
@@ -384,7 +488,7 @@ if($round_status == "completed")
 {
   echo "<tr>";
 
-  echo "<td colspan=2>ROUND COMPLETE</td>";
+  echo "<td colspan=3>ROUND COMPLETE</td>";
 
   echo "</tr>";
 
@@ -392,7 +496,7 @@ if($round_status == "completed")
 else {
   echo "<tr>";
 
-  echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
+  echo "<td colspan=3>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
 
   echo "</tr>";
 }
@@ -401,21 +505,37 @@ echo "<tr>";
 
 echo "<td><b>Team</b></td>";
 echo "<td><b>Points</b></td>";
+echo "<td><b>Played</b></td>";
 
 echo "</tr>";
 
-foreach ($sums as $label => $count) {
+foreach ($sums_2 as $item) {
 
     echo "<tr>";
 
-    echo "<td><b>". $label ."</b></td>";
-    echo "<td  align=right><b>". $count ."</b></td>";
+    echo "<td><b>". $item[team] ."</b></td>";
+    echo "<td  align=right><b>". $item[gamepointstable] ."</b></td>";
+    echo "<td  align=right><b>". $item[gamegroupcount] ."</b></td>";
 
     echo "</tr>";
+
   }
 
 echo "</table>";
 
+
+//
+// echo "<hr>";
+// print_r($array_total_2);
+// echo "<hr>";
+//
+// echo "<hr>";
+// print_r($sums_2);
+// echo "<hr>";
+
+
+
+// Individual Standings
 
 $countcheckgames = count($array_games);
 
@@ -498,15 +618,13 @@ else {}
   }
 
 
-
 echo "<tr bgcolor=" . $tablecolor . ">";
-
-
 echo "<td>" . $gameranktable . "</td>";
 echo "<td>" . $gamepointstable . "</td>";
 echo "<td>" . $array_games[$i][name] . "</td>";
 echo "<td align=right>" . number_format($array_games[$i][score]) . "</td>";
 echo "</tr>";
+
 
 // array_push($array_total,
 //   array($array_test[$i][groupname] => $gamepointstable,
