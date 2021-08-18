@@ -62,18 +62,107 @@ echo $tournament;
 
 <!-- Stylesheet -->
         <style>
-            .my_text
-            {
-                font-family:    "Courier New", Courier, monospace;
-                font-size:      <?php echo $fontsize;?>px;
-            }
+        body {
+            margin: 50px;
+        }
+        .my_text {
+            /*font-family: 'Open Sans', sans-serif;*/
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            color: #FFFFFF;
+        }
+        .tabularData {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: right;
+        }
+        table.standingsTable {
+            background-color: #2D2E36;
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        table.totalsTable {
+            background-color: #2D2E36;
+            text-align: left;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        table.standingsTable td, table.totalsTable td {
+            border: 2px solid #18181C;
+            padding: 3px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        table.standingsTable .zebraA {
+            background: #26252C;
+        }
+        table.standingsTable .zebraB {
+            background: #2d2e36;
+        }
+        tr.sectionBreak {
+            border-top: 4px solid #FFFFFF !important;
+        }
+        a:link, a:visited {
+            color: #4578ed;
+        }
+        .team1 {
+            background: #70943e;
+        }
+        .team2 {
+            background: #4b6186;
+        }
+        .team3 {
+            background: #e37a49;
+        }
+        .team4 {
+            background: #713d65;
+        }
+        .team5 {
+            background: #3f7a74;
+        }
+        .team6 {
+            background: #d32d4a;
+        }
+        .team7 {
+            background: #cc0000;
+        }
+        .team8 {
+            background: #444444;
+        }
+        .game_batman66 {
+            background-image: url("large.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_fathom {
+            background-image: url("fathom.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_jurassicParkPremium {
+            background-image: url("JurassicPark-Premium-translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_metallicaLE {
+            background-image: url("metallica-translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .rank {
+            background: #2d2e36;
+            text-align: center;
+        }
         </style>
 
 </head>
 
 
 
-<body>
+<body bgcolor="#18181c">
 <!-- Entire body is part of this div class-->
 <div class="my_text">
 
@@ -104,7 +193,11 @@ $array_total_2 = array();
 
 $i = 0;
 
+$iminus = -1;
+
 $igroup = 0;
+
+$groupcheck = '';
 
 while($i <= $countcheckcounter){
 
@@ -147,7 +240,25 @@ while($i <= $countcheckcounter){
         $groupmembers = 4;
       }
       $teamgamescore = floor($score0 + $score1 + $score2 + $score3) / $groupmembers;
+
       $groupname = $name0 . ' / ' . $name1 . ' / ' . $name2  . ' / ' . $name3;
+      if($groupcheck === $groupname){
+      }
+      else {
+        $igroup++;
+      }
+      $groupcheck = $groupname;
+
+      if($igroup === 1){$teamname = 'Green General Illumination';}
+      if($igroup === 2){$teamname = 'Blue Bumpers';}
+      if($igroup === 3){$teamname = 'Coral Kickbacks';}
+      if($igroup === 4){$teamname = 'Violet Vari-Targets';}
+      if($igroup === 5){$teamname = 'Teal Tilt Bobs';}
+      if($igroup === 6){$teamname = 'Fuschia Flippers';}
+      if($igroup === 7){$teamname = 'Red Replays';}
+      if($igroup === 8){$teamname = 'Silver Spinners';}
+      if($igroup > 8){$teamname = 'Pinball Team ' . $igroup;}
+
 
 
 
@@ -157,6 +268,8 @@ while($i <= $countcheckcounter){
          array('arenaname' => $arenaname,
                'name' => $name0,
                'score' => $score0,
+               'groupnumber' => $igroup,
+               'teamname' => $teamname,
               )
 
        );
@@ -164,6 +277,8 @@ while($i <= $countcheckcounter){
          array('arenaname' => $arenaname,
                'name' => $name1,
                'score' => $score1,
+               'groupnumber' => $igroup,
+               'teamname' => $teamname,
               )
 
        );
@@ -171,6 +286,8 @@ while($i <= $countcheckcounter){
          array('arenaname' => $arenaname,
                'name' => $name2,
                'score' => $score2,
+               'groupnumber' => $igroup,
+               'teamname' => $teamname,
               )
 
        );
@@ -178,6 +295,8 @@ while($i <= $countcheckcounter){
          array('arenaname' => $arenaname,
                'name' => $name3,
                'score' => $score3,
+               'groupnumber' => $igroup,
+               'teamname' => $teamname,
               )
 
        );
@@ -208,11 +327,11 @@ while($i <= $countcheckcounter){
               'teamgamescore' => $teamgamescore,
               'groupcompletegamecount' => $groupcompletegamecount,
               'groupname' => $groupname,
+              'groupnumber' => $igroup,
+              'teamname' => $teamname,
              )
 
      );
-
-      $igroup++;
 
     $i++;
 }
@@ -237,16 +356,6 @@ usort($array_test, function($a, $b)
     return $name;
 });
 
-//usort($array_test, build_sorter('arenaname'));
-
-
-//$array_sorted = array_orderby($array_test, 'arenaname', SORT_ASC, 'teamgamescore', SORT_DESC);
-
-//array_multisort($array_test[arenaname], SORT_ASC, SORT_STRING,
-//                $array_test[teamgamescore], SORT_MUMERIC, SORT_DESC,
-//                $array_test);
-
-
 $countcheck = count($array_test);
 
 $countcheckcounter = $countcheck - 1;
@@ -255,15 +364,16 @@ $i = 0;
 
 
 
-// old table code
+// Standings Table
 
 echo "<hr>Standings Table:<br>";
 
-echo "<table border=1>";
+echo "<table class='standingsTable'>";
 
-echo "<tr>";
+echo "<tr class='sectionBreak'>";
 
 echo "<td><b>Game Name</b></td>";
+echo "<td><b>Team</b></td>";
 echo "<td><b>Rank</b></td>";
 echo "<td><b>Points</b></td>";
 echo "<td><b>Player 1</b></td>";
@@ -304,10 +414,7 @@ $gamecheck = $array_test[$i][arenaname];
 
 if($gamecheck !== $gamecheckprior)
 {
-  if($tablecolor === '#dddddd')
-  {$tablecolor = '#ffffff';}
-    else
-  {$tablecolor = '#dddddd';}
+  $sectionbreak = "sectionBreak";
 
 
   $gamerank = 1;
@@ -315,7 +422,9 @@ if($gamecheck !== $gamecheckprior)
 
 
 }
-else {}
+else {
+  $sectionbreak = "";
+}
 
   if($gamerank == 1) {$gamepoints = 10;}
   if($gamerank == 2) {$gamepoints = 7;}
@@ -341,20 +450,22 @@ else {}
 
 
 
-echo "<tr bgcolor=" . $tablecolor . ">";
+//echo "<tr class='team" . $array_test[$i][groupnumber] . " " . $sectionbreak . "'>";
+echo "<tr class='team" . " " . $sectionbreak . "'>";
 
-echo "<td>Game: " . $array_test[$i][arenaname] . "</td>";
-echo "<td>" . $gameranktable . "</td>";
-echo "<td>" . $gamepointstable . "</td>";
-echo "<td>" . $array_test[$i][name1] . "</td>";
-echo "<td align=right>" . number_format($array_test[$i][score1]) . "</td>";
-echo "<td>" . $array_test[$i][name2] . "</td>";
-echo "<td align=right>" . number_format($array_test[$i][score2]) . "</td>";
-echo "<td>" . $array_test[$i][name3] . "</td>";
-echo "<td align=right>" . number_format($array_test[$i][score3]) . "</td>";
-echo "<td>" . $array_test[$i][name4] . "</td>";
-echo "<td align=right>" . number_format($array_test[$i][score4]) . "</td>";
-echo "<td align=right><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
+echo "<td class='rank'>Game: " . $array_test[$i][arenaname] . "</td>";
+echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][teamname] . "</td>";
+echo "<td class='rank'>" . $gameranktable . "</td>";
+echo "<td class='rank'>" . $gamepointstable . "</td>";
+echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name1] . "</td>";
+echo "<td class='tabularData'>" . number_format($array_test[$i][score1]) . "</td>";
+echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name2] . "</td>";
+echo "<td class='tabularData'>" . number_format($array_test[$i][score2]) . "</td>";
+echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name3] . "</td>";
+echo "<td class='tabularData'>" . number_format($array_test[$i][score3]) . "</td>";
+echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name4] . "</td>";
+echo "<td class='tabularData'>" . number_format($array_test[$i][score4]) . "</td>";
+echo "<td class='tabularData'><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
 
 echo "</tr>";
 
@@ -364,10 +475,11 @@ array_push($array_total,
   );
 
 array_push($array_total_2,
-  array('team' => $array_test[$i][groupname],
+  array('team' => $array_test[$i][groupname] . '|' . $array_test[$i][groupnumber] . '|' . $array_test[$i][teamname],
         'gamepointstable' => $gamepointstable,
         'gamegroupcount' => $gamegroupcount,
         'groupcompletegamecount' => $groupcompletegamecount,
+
     )
   );
 
@@ -428,48 +540,6 @@ usort($sums_2, function ($a, $b) {
     return $b['gamepointstable'] - $a['gamepointstable'];
 });
 
-// Original Team Totals
-
-// echo "<hr>Team Totals Table:<br>";
-//
-// echo "<table border=1>";
-//
-// if($round_status == "completed")
-//
-// {
-//   echo "<tr>";
-//
-//   echo "<td colspan=2>ROUND COMPLETE</td>";
-//
-//   echo "</tr>";
-//
-// }
-// else {
-//   echo "<tr>";
-//
-//   echo "<td colspan=2>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
-//
-//   echo "</tr>";
-// }
-//
-// echo "<tr>";
-//
-// echo "<td><b>Team</b></td>";
-// echo "<td><b>Points</b></td>";
-//
-// echo "</tr>";
-//
-// foreach ($sums as $label => $count) {
-//
-//     echo "<tr>";
-//
-//     echo "<td><b>". $label ."</b></td>";
-//     echo "<td  align=right><b>". $count ."</b></td>";
-//
-//     echo "</tr>";
-//   }
-//
-// echo "</table>";
 
 // Updated Team Totals
 
@@ -481,14 +551,14 @@ $i = 0;
 
 echo "<hr>Team Totals Table:<br>";
 
-echo "<table border=1>";
+echo "<table class='totalsTable'>";
 
 if($round_status == "completed")
 
 {
   echo "<tr>";
 
-  echo "<td colspan=3>ROUND COMPLETE</td>";
+  echo "<td colspan=4>ROUND COMPLETE</td>";
 
   echo "</tr>";
 
@@ -496,7 +566,7 @@ if($round_status == "completed")
 else {
   echo "<tr>";
 
-  echo "<td colspan=3>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
+  echo "<td colspan=4>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
 
   echo "</tr>";
 }
@@ -504,6 +574,7 @@ else {
 echo "<tr>";
 
 echo "<td><b>Team</b></td>";
+echo "<td><b>Players</b></td>";
 echo "<td><b>Points</b></td>";
 echo "<td><b>Played</b></td>";
 
@@ -511,9 +582,11 @@ echo "</tr>";
 
 foreach ($sums_2 as $item) {
 
-    echo "<tr>";
+    $teamexplode = explode('|',$item[team]);
 
-    echo "<td><b>". $item[team] ."</b></td>";
+    echo "<tr class='team" . $teamexplode[1] . "'>";
+    echo "<td><b>". $teamexplode[2] ."</b></td>";
+    echo "<td><b>". $teamexplode[0] ."</b></td>";
     echo "<td  align=right><b>". $item[gamepointstable] ."</b></td>";
     echo "<td  align=right><b>". $item[gamegroupcount] ."</b></td>";
 
@@ -576,7 +649,7 @@ if($gamecheck !== $gamecheckprior)
   echo "</td>";
 
   echo "<td>";
-  echo "<table border=1>";
+  echo "<table class='totalsTable'>";
 
   echo "<tr>";
   echo "<td colspan=4><b>" . $array_games[$i][arenaname] . "</b></td>";
@@ -618,10 +691,10 @@ else {}
   }
 
 
-echo "<tr bgcolor=" . $tablecolor . ">";
-echo "<td>" . $gameranktable . "</td>";
-echo "<td>" . $gamepointstable . "</td>";
-echo "<td>" . $array_games[$i][name] . "</td>";
+echo "<tr>";
+echo "<td class='rank'>" . $gameranktable . "</td>";
+echo "<td class='tabularData'>" . $gamepointstable . "</td>";
+echo "<td class='team" . $array_games[$i][groupnumber] . "'>" . $array_games[$i][name] . "</td>";
 echo "<td align=right>" . number_format($array_games[$i][score]) . "</td>";
 echo "</tr>";
 
@@ -650,7 +723,13 @@ echo "</tr>";
 <p>
 
 <hr>
-Team Match Play v4
+Team Match Play v5.0
+<hr>
+Data: <a href='http://matchplay.events'>matchplay.events</a>
+<br>
+Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
+<br>
+CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a>
 
 </div>
 </body>
