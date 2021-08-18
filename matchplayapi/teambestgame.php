@@ -113,49 +113,90 @@ echo $tournament;
             color: #4578ed;
         }
         .team1 {
-            background: #70943e;
+            background: #70943e; /*Green General Illumination*/
         }
         .team2 {
-            background: #4b6186;
+            background: #4b6186; /*Blue Bumpers*/
         }
         .team3 {
-            background: #e37a49;
+            background: #e37a49; /*Coral Kickbacks*/
         }
         .team4 {
-            background: #713d65;
+            background: #713d65; /*Violet Vari-Targets*/
         }
         .team5 {
-            background: #3f7a74;
+            background: #3f7a74; /*Teal Tilt Bobs*/
         }
         .team6 {
-            background: #d32d4a;
+            background: #d32d4a; /*Fuschia Flipper*/
         }
         .team7 {
-            background: #cc0000;
+            background: #cc0000; /*Red Replays*/
         }
         .team8 {
-            background: #444444;
+            background: #444444; /*Silver Spinners*/
         }
-        .game_batman66 {
-            background-image: url("large.jpg");
+        .team1_dark {
+            background: rgba(112,148,62,0.40);
+        }
+        .team2_dark {
+            background: rgba(75,97,134,0.40);
+        }
+        .team3_dark {
+            background: rgba(227,122,74,0.40);
+        }
+        .team5_dark {
+            background: rgba(63,121,116,0.40);
+        }
+        .team4_dark {
+            background: rgba(113,61,101,0.40);
+        }
+        .team6_dark {
+            background: rgba(211,45,74,0.40);
+        }
+        .team7_dark {
+            background: rgba(204,0,0,0.40);
+        }
+        .team8_dark {
+            background: rgba(204,204,204,0.40);
+        }
+        .game_32851 { /* Batman 66 */
+            background-image: url("images/batman66_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
-        .game_fathom {
-            background-image: url("fathom.jpg");
+        .game_2513 { /* Fathom */
+            background-image: url("images/fathom_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
-        .game_jurassicParkPremium {
-            background-image: url("JurassicPark-Premium-translite.jpg");
+        .game_71810 { /* Jurassic Park Premium */
+            background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
-        .game_metallicaLE {
-            background-image: url("metallica-translite.jpg");
+        .game_31874 { /* Metallica */
+            background-image: url("images/metallica_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_2916 { /* Funhouse */
+            background-image: url("images/funhouse_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_71811 { /* Quicksilver */
+            background-image: url("images/quicksilver_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_2915 { /* The Simpsons Pinball Party */
+            background-image: url("images/simpsons_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_49946 { /* Wonka (LE) */
+            background-image: url("images/wonka_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
         .rank {
             background: #2d2e36;
             text-align: center;
         }
+
         </style>
 
 </head>
@@ -453,19 +494,22 @@ else {
 //echo "<tr class='team" . $array_test[$i][groupnumber] . " " . $sectionbreak . "'>";
 echo "<tr class='team" . " " . $sectionbreak . "'>";
 
-echo "<td class='rank'>Game: " . $array_test[$i][arenaname] . "</td>";
+if($gamecheck !== $gamecheckprior)
+{
+echo "<td class='game_" . $array_test[$i][arenaid] . "' rowspan=" . $igroup . ">Game: " . $array_test[$i][arenaname] . "</td>";
+}
 echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][teamname] . "</td>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
-echo "<td class='rank'>" . $gamepointstable . "</td>";
+echo "<td class='rank team" . $array_test[$i][groupnumber] . "_dark'>" . $gamepointstable . "</td>";
 echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name1] . "</td>";
-echo "<td class='tabularData'>" . number_format($array_test[$i][score1]) . "</td>";
+echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score1]) . "</td>";
 echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name2] . "</td>";
-echo "<td class='tabularData'>" . number_format($array_test[$i][score2]) . "</td>";
+echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score2]) . "</td>";
 echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name3] . "</td>";
-echo "<td class='tabularData'>" . number_format($array_test[$i][score3]) . "</td>";
+echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score3]) . "</td>";
 echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name4] . "</td>";
-echo "<td class='tabularData'>" . number_format($array_test[$i][score4]) . "</td>";
-echo "<td class='tabularData'><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
+echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score4]) . "</td>";
+echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "'><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
 
 echo "</tr>";
 
@@ -587,8 +631,8 @@ foreach ($sums_2 as $item) {
     echo "<tr class='team" . $teamexplode[1] . "'>";
     echo "<td><b>". $teamexplode[2] ."</b></td>";
     echo "<td><b>". $teamexplode[0] ."</b></td>";
-    echo "<td  align=right><b>". $item[gamepointstable] ."</b></td>";
-    echo "<td  align=right><b>". $item[gamegroupcount] ."</b></td>";
+    echo "<td class='rank'><b>". $item[gamepointstable] ."</b></td>";
+    echo "<td class='rank'><b>". $item[gamegroupcount] ."</b></td>";
 
     echo "</tr>";
 
@@ -693,9 +737,9 @@ else {}
 
 echo "<tr>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
-echo "<td class='tabularData'>" . $gamepointstable . "</td>";
+echo "<td class='rank'>" . $gamepointstable . "</td>";
 echo "<td class='team" . $array_games[$i][groupnumber] . "'>" . $array_games[$i][name] . "</td>";
-echo "<td align=right>" . number_format($array_games[$i][score]) . "</td>";
+echo "<td class='tabularData team" . $array_games[$i][groupnumber] . "_dark'>" . number_format($array_games[$i][score]) . "</td>";
 echo "</tr>";
 
 
