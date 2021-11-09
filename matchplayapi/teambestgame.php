@@ -833,7 +833,7 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 <p>
 
 <hr>
-Team Match Play v5.0
+Team Match Play v6.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
