@@ -5,6 +5,10 @@
         include('head.php')
     ?>
 
+<!-- Refresh the page once every 60 seconds. -->
+
+<meta http-equiv="refresh" content="60">
+
 <?php
 
 if (isset($_GET['matchplaylink'])) {
@@ -42,7 +46,9 @@ echo $tournament;
         <style>
             .my_text
             {
-                font-family:    "Courier New", Courier, monospace;
+                font-family: 'Roboto Mono', "Courier New", Courier, monospace;
+                font-size: <?php echo $fontsize;?>px;
+                font-weight: 400;
                 font-size:      <?php echo $fontsize;?>px;
             }
         </style>
