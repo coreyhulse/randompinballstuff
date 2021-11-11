@@ -232,6 +232,10 @@ $array_games = array();
 
 $array_total_2 = array();
 
+$array_player = array();
+
+$array_player_sum = array();
+
 $i = 0;
 
 $iminus = -1;
@@ -425,7 +429,7 @@ echo "<td><b>Player 3</b></td>";
 echo "<td><b>Score</b></td>";
 echo "<td><b>Player 4</b></td>";
 echo "<td><b>Score</b></td>";
-echo "<td><b>Average<br>Team<br>Score</b></td>";
+echo "<td><b>Avg Score</b></td>";
 
 echo "</tr>";
 
@@ -511,7 +515,7 @@ echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][n
 echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score4]) . "</td>";
 echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "'><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
 
-echo "</tr>";
+echo "</tr>".PHP_EOL;
 
 array_push($array_total,
   array($array_test[$i][groupname] => $gamepointstable,
@@ -660,6 +664,8 @@ $countcheckgamescounter = $countcheckgames - 1;
 
 $i = 0;
 
+$player_points = 0;
+
 echo "<hr>Individual Standings Table:<br>";
 
 echo "<table>";
@@ -743,10 +749,11 @@ echo "<td class='tabularData team" . $array_games[$i][groupnumber] . "_dark'>" .
 echo "</tr>";
 
 
-// array_push($array_total,
-//   array($array_test[$i][groupname] => $gamepointstable,
-//     )
-//   );
+$player_name = $array_games[$i][name] . "|" . $array_games[$i][groupnumber];
+
+$player_points = $array_player[$player_name];
+
+$array_player[$player_name] = $gamepointstable + $player_points;
 
     $gamecheckprior = $gamecheck;
 
@@ -756,10 +763,69 @@ echo "</tr>";
 
 }
 
+
+
+
   echo "</table>";
   echo "</tr>";
   echo "</td>";
   echo "</table>";
+
+
+  // Sort the array in descending order of values
+  arsort($array_player);
+
+
+
+  // Individual Total Standings
+
+  $countcheckplayer = count($array_player);
+
+  $countcheckplayercounter = $countcheckplayer - 1;
+
+  $i = 0;
+
+  $player_points = 0;
+
+  echo "<hr>Individual Totals Table:<br>";
+
+  echo "<table class='totalsTable'>";
+  echo "<tr>";
+  echo "<td><b>Rank</b></td>";
+  echo "<td><b>Player</b></td>";
+  echo "<td><b>Points</b></td>";
+  echo "</tr>";
+
+  $totalplayer = 0;
+  $totalrank = 0;
+  $totalpoints = 0;
+  $gamerank = 1;
+
+  foreach ($array_player as $key => $val) {
+
+
+  $playerexplode = explode('|',$key);
+
+
+  echo "<tr>";
+  echo "<td class='rank'>" . $gamerank . "</td>";
+  echo "<td class='team" . $playerexplode[1] . "'>" . $playerexplode[0] . "</td>";
+  echo "<td class='rank'>" . $val . "</td>";
+  echo "</tr>";
+
+  $gamerank++;
+
+
+  }
+
+
+
+
+    echo "</table>";
+    echo "</tr>";
+    echo "</td>";
+    echo "</table>";
+
 
 
 
@@ -767,7 +833,7 @@ echo "</tr>";
 <p>
 
 <hr>
-Team Match Play v5.0
+Team Match Play v6.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
