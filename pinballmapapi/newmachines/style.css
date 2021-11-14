@@ -1,0 +1,79 @@
+<style>
+        body {
+            margin: 50px;
+        }
+        .my_text {
+            /*font-family: 'Open Sans', sans-serif;*/
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            color: #DDDDDD;
+        }
+
+        a:link, a:visited {
+            color: #4578ed;
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            color: #DDDDDD;
+
+        }
+
+        tr {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        tr.info {
+            background-color: #2D2E36;
+            border-bottom: 1pt solid black;
+        }
+
+        td {
+            padding: 4px 4px;
+        }
+
+        .machinename {
+            font-family: 'Roboto', sans-serif;
+            font-size: 48px;
+            color: #FFFFFF;
+            width: 70%;
+        }
+
+        .machinenote {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .machinemanu {
+            width: 30%;
+        }
+
+        .machinenew {
+            background: rgba(112,148,62,0.40);  /*Green General Illumination*/
+            border-top-right-radius: 30px;
+            border-top-left-radius: 30px;
+            padding: 4px 26px;
+        }
+
+        .machineupdated {
+            background: rgba(227,122,74,0.40);  /*Coral Kickbacks*/
+            border-top-right-radius: 30px;
+            border-top-left-radius: 30px;
+            padding: 4px 26px;
+        }
+
+
+
+</style>
