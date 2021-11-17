@@ -17,6 +17,47 @@
 // Query the various JSON blobs from PinballMap API
 // Documentation: https://pinballmap.com/api/v1/docs
 
+$json_region = file_get_contents('https://pinballmap.com/api/v1/regions.json');
+$obj_region = json_decode($json_region);
+$obj_decode_region = json_decode($json_region, TRUE);
+
+$countcheckregion = count($obj_decode_region['regions']);
+
+$countcheckregioncounter = $countcheckregion - 1;
+
+$array_regions = array();
+
+$r = 0;
+
+
+
+while($r <= $countcheckregioncounter){
+
+$region_name = ($obj_decode['regions'][$r]['name']);
+$region_full_name = ($obj_decode['regions'][$r]['full_name']);
+$region_state = ($obj_decode['regions'][$r]['state']);
+$region_display_name = $region_state . ' - ' . $region_full_name;
+
+array_push($array_regions,
+  array('region_name' => $region_name,
+        'region_full_name' => $region_full_name,
+        'region_state' => $region_state,
+        'region_display_name' => $region_display_name,
+  )
+  )
+
+$r++;
+
+}
+
+usort($array_regions, function ($item1, $item2) {
+    return $item2['region_display_name'] <=> $item1['region_display_name'];
+});
+
+
+
+
+
 $region = 'Philadelphia';
 
 $json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region);
@@ -44,6 +85,29 @@ echo $region;
 
 
 <?php
+
+
+$countcheckregionlist = count($array_regions);
+
+$countcheckregionlistcounter = $countcheckregionlist - 1;
+
+$l = 0;
+
+echo '<select name="cars" id="region">';
+
+
+
+while($l <= $countcheckregionlistcounter){
+
+<option value="volvo">Volvo</option>
+
+echo '<option value="'. $array_regions[$l]['region_name'] . '">' $array_regions[$l]['region_display_name'] . '</option>';
+
+$l++;
+
+}
+
+echo '</select>';
 
 echo "<hr>";
 
