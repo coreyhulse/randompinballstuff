@@ -17,11 +17,13 @@
 // Query the various JSON blobs from PinballMap API
 // Documentation: https://pinballmap.com/api/v1/docs
 
-$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=Philadelphia');
+$region = 'Philadelphia';
+
+$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region);
 $obj = json_decode($json);
 $obj_decode = json_decode($json, TRUE);
 
-$region = 'Philadelphia';
+
 
 ?>
 
@@ -58,6 +60,7 @@ $i = 0;
 
 $date_today = date('m/d/Y h:i:s a', time());
 $date_compare = date("Y-m-d", strtotime("-28 days"));
+$date_limit = date("Y/m/d", strtotime("-90 days"));
 
 while($i <= $countcheckcounter){
 
@@ -102,11 +105,20 @@ while($i <= $countcheckcounter){
           //$date_diff = date("Y-m-d", $date_today) - date("Y-m-d", $machine_updated_at);
 
           $date_diff = strtotime("now") - strtotime($machine_updated_at);
-          $date_diff = round($date_diff/ 86400);
+          $date_diff = round($date_diff/86400);
           //if($date_diff = 1) {$date_diff_1 = '';} else {$date_diff_1 = 's';}
           $date_diff_text = ' - ' . number_format($date_diff) . ' Days' . $date_diff_1 . ' Ago';
 
+          $machine_keep = 'no';
+
+          if (strtotime($machine_updated_date) > strtotime($date_limit)) {
+              $machine_keep = 'yes';
+          } else {
+              $machine_keep = 'no';
+          }
+
           $machine_last_updated_by_username = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['last_updated_by_username'];
+          if(empty($machine_last_updated_by_username)) {$machine_last_updated_by_username_check = 'admin';} else {$machine_last_updated_by_username_check = $machine_last_updated_by_username;}
           $machine_condition = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['condition'];
           $machine_id = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine_id'];
           $machine_name = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['name'];
@@ -130,12 +142,14 @@ while($i <= $countcheckcounter){
                   'location_updated_at' => $location_updated_at,
                   'location_description' => $location_description,
                   'location_last_updated_by_username' => $location_last_updated_by_username,
+                  'location_last_updated_by_username_check' => $location_last_updated_by_username_check,
                   'location_num_machines' => $location_num_machines,
                   'machine_created_at' => $machine_created_at,
                   'machine_updated_at' => $machine_updated_at,
                   'machine_created_date' => $machine_created_date,
                   'machine_updated_date' => $machine_updated_date,
                   'machine_last_updated_by_username' => $machine_last_updated_by_username,
+                  'machine_last_updated_by_username_check' => $machine_last_updated_by_username_check,
                   'machine_condition' => $machine_condition,
                   'machine_id' => $machine_id,
                   'machine_name' => $machine_name,
@@ -147,7 +161,9 @@ while($i <= $countcheckcounter){
                   'machine_link_pintips' => $machine_link_pintips,
                   'machine_type' => $machine_type,
                   'machine_type_css' => $machine_type_css,
+                  'machine_keep' => $machine_keep,
                   'date_diff_text' => $date_diff_text,
+                  'date_limit' => $date_limit,
 
                 )
             );
@@ -177,6 +193,10 @@ $t = 0;
 
 while($t <= $countchecktable){
 
+$machine_keep_check = $array_machines[$t]['machine_keep'];
+
+if($machine_keep_check === 'yes') {
+
     echo '<table>';
     echo '<tr>';
     echo '<td class="' . $array_machines[$t]['machine_type_css'] . '">' . $array_machines[$t]['machine_type'] . $array_machines[$t]['date_diff_text'] . '</td>';
@@ -200,7 +220,7 @@ while($t <= $countchecktable){
         if(empty($array_machines[$t]['machine_link_pintips'])) {} else {echo ' | <a href=' . $array_machines[$t]['machine_link_pintip'] . " target='new'>PinTips</a>";}
 
     echo '</td>';
-    echo '<td>Last Updated By: ' . $array_machines[$t]['machine_last_updated_by_username'] . '</td>';
+    echo '<td>Last Updated By: ' . $array_machines[$t]['machine_last_updated_by_username_check'] . '</td>';
     echo '</tr>';
 
     if (empty($array_machines[$t]['machine_condition'])) {
@@ -217,6 +237,9 @@ while($t <= $countchecktable){
 
     echo '</table>';
 
+
+} else {
+}
 
 $t++;
 
@@ -267,5 +290,11 @@ $t++;
 //echo "</pre>";
 
 ?>
-
+<p>
+<hr>
+PinballMap Recently Updated Machines v1.0
+<hr>
+Data: <a href='https://www.pinballmap.com/'>pinballmap.com/</a>
+<br>
+Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
 </div>
