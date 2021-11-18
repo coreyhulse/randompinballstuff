@@ -1,0 +1,5 @@
+[18-Nov-2021 09:18:51 America/Boise] PHP Parse error:  syntax error, unexpected '$r' (T_VARIABLE) in /home3/hulseweb/public_html/pinballspinner/pinballmapapi/newmachines/machines.php on line 49
+[18-Nov-2021 09:19:42 America/Boise] PHP Parse error:  syntax error, unexpected '<' in /home3/hulseweb/public_html/pinballspinner/pinballmapapi/newmachines/machines.php on line 102
+[18-Nov-2021 09:20:22 America/Boise] PHP Parse error:  syntax error, unexpected '$array_regions' (T_VARIABLE), expecting ',' or ';' in /home3/hulseweb/public_html/pinballspinner/pinballmapapi/newmachines/machines.php on line 102
+[18-Nov-2021 13:13:42 America/Boise] PHP Parse error:  syntax error, unexpected '$region_selected' (T_VARIABLE) in /home3/hulseweb/public_html/pinballspinner/pinballmapapi/newmachines/machines.php on line 21
+[18-Nov-2021 13:14:15 America/Boise] PHP Parse error:  syntax error, unexpected '}' in /home3/hulseweb/public_html/pinballspinner/pinballmapapi/newmachines/machines.php on line 52

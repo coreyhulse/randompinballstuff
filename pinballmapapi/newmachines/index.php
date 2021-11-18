@@ -13,6 +13,14 @@
 
 <?php
 
+if (isset($_GET['region'])) {
+$region_selected = $_GET['region'];
+} else {
+$notice = "<p class='machinenote'>No Region provided so we're showing you machines from a randomly picked region.  Pick a region from the dropdown above!<p>";
+
+
+}
+
 
 // Query the various JSON blobs from PinballMap API
 // Documentation: https://pinballmap.com/api/v1/docs
@@ -29,29 +37,48 @@ $array_regions = array();
 
 $r = 0;
 
+$region_random_id = -1;
+
+if (isset($_GET['region'])) {
+} else {
+$region_selected = '';
+$region_random_id = rand(0, $countcheckregioncounter);
+}
 
 
 while($r <= $countcheckregioncounter){
 
-$region_name = ($obj_decode['regions'][$r]['name']);
-$region_full_name = ($obj_decode['regions'][$r]['full_name']);
-$region_state = ($obj_decode['regions'][$r]['state']);
+$region_name = ($obj_decode_region['regions'][$r]['name']);
+$region_full_name = ($obj_decode_region['regions'][$r]['full_name']);
+$region_state = ($obj_decode_region['regions'][$r]['state']);
 $region_display_name = $region_state . ' - ' . $region_full_name;
+if($region_selected === $region_name) {
+    $region_selected_text = ' selected';
+    $region_selected_name = $region_name;
+    $region_selected_full_name = $region_full_name;
+} elseif ($r === $region_random_id) {
+    $region_selected_text = ' selected';
+    $region_selected_name = $region_name;
+    $region_selected_full_name = $region_full_name;
+} else {
+    $region_selected_text = '';
+}
 
 array_push($array_regions,
   array('region_name' => $region_name,
         'region_full_name' => $region_full_name,
         'region_state' => $region_state,
         'region_display_name' => $region_display_name,
+        'region_selected_text' => $region_selected_text,
   )
-  )
+);
 
 $r++;
 
 }
 
 usort($array_regions, function ($item1, $item2) {
-    return $item2['region_display_name'] <=> $item1['region_display_name'];
+    return $item1['region_display_name'] <=> $item2['region_display_name'];
 });
 
 
@@ -60,7 +87,7 @@ usort($array_regions, function ($item1, $item2) {
 
 $region = 'Philadelphia';
 
-$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region);
+$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region_selected_name);
 $obj = json_decode($json);
 $obj_decode = json_decode($json, TRUE);
 
@@ -69,7 +96,7 @@ $obj_decode = json_decode($json, TRUE);
 ?>
 
 <title><?php
-echo $region;
+echo $region_selected_full_name;
 ?> PinballMap.com Recently Added Machines</title>
 
 
@@ -86,22 +113,19 @@ echo $region;
 
 <?php
 
-
 $countcheckregionlist = count($array_regions);
 
 $countcheckregionlistcounter = $countcheckregionlist - 1;
 
 $l = 0;
 
-echo '<select name="cars" id="region">';
+echo '<select name="region" id="region" onChange="window.document.location.href=this.options[this.selectedIndex].value;">';
 
 
 
 while($l <= $countcheckregionlistcounter){
 
-<option value="volvo">Volvo</option>
-
-echo '<option value="'. $array_regions[$l]['region_name'] . '">' $array_regions[$l]['region_display_name'] . '</option>';
+echo '<option value="https://pinballspinner.com/pinballmapapi/newmachines/index.php?region=' . $array_regions[$l]['region_name'] . '"' . $array_regions[$l]['region_selected_text'] .'>' . $array_regions[$l]['region_display_name'] . '</option>';
 
 $l++;
 
@@ -109,10 +133,19 @@ $l++;
 
 echo '</select>';
 
+echo $notice;
+
+?>
+
+
+
+<?php
+
 echo "<hr>";
 
-echo "<b>PinballMap.com Recently Added Machines: " . $region . " </b> | <a href=https://www.pinballmap.com/" . $region . ">https://www.pinballmap.com/" . $region . "</a><p>";
+echo "<b>PinballMap.com Recently Added Machines: " . $region_selected_full_name . " </b> | <a href=https://www.pinballmap.com/" . $region_selected_name . ">https://www.pinballmap.com/" . $region_selected_name . "</a><p>";
 
+echo "<p class='machinenote'>The following are pinball machines that have either been added or updated on PinballMap.com within the past 90 days.<p>";
 
 $countcheck = count($obj_decode['locations']);
 
@@ -356,9 +389,11 @@ $t++;
 ?>
 <p>
 <hr>
-PinballMap Recently Updated Machines v1.0
+PinballMap Recently Updated Machines v2.0
 <hr>
-Data: <a href='https://www.pinballmap.com/'>pinballmap.com/</a>
+Data: <a href='https://www.pinballmap.com/'>pinballmap.com</a>
 <br>
-Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
+Listing: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
+<br>
+GitHub: <a href='https://github.com/coreyhulse/randompinballstuff'>github repository</a>
 </div>
