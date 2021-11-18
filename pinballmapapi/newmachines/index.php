@@ -13,20 +13,90 @@
 
 <?php
 
+if (isset($_GET['region'])) {
+$region_selected = $_GET['region'];
+} else {
+$notice = "<p class='machinenote'>No Region provided so we're showing you machines from a randomly picked region.  Pick a region from the dropdown above!<p>";
+
+
+}
+
 
 // Query the various JSON blobs from PinballMap API
 // Documentation: https://pinballmap.com/api/v1/docs
 
-$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=Philadelphia');
+$json_region = file_get_contents('https://pinballmap.com/api/v1/regions.json');
+$obj_region = json_decode($json_region);
+$obj_decode_region = json_decode($json_region, TRUE);
+
+$countcheckregion = count($obj_decode_region['regions']);
+
+$countcheckregioncounter = $countcheckregion - 1;
+
+$array_regions = array();
+
+$r = 0;
+
+$region_random_id = -1;
+
+if (isset($_GET['region'])) {
+} else {
+$region_selected = '';
+$region_random_id = rand(0, $countcheckregioncounter);
+}
+
+
+while($r <= $countcheckregioncounter){
+
+$region_name = ($obj_decode_region['regions'][$r]['name']);
+$region_full_name = ($obj_decode_region['regions'][$r]['full_name']);
+$region_state = ($obj_decode_region['regions'][$r]['state']);
+$region_display_name = $region_state . ' - ' . $region_full_name;
+if($region_selected === $region_name) {
+    $region_selected_text = ' selected';
+    $region_selected_name = $region_name;
+    $region_selected_full_name = $region_full_name;
+} elseif ($r === $region_random_id) {
+    $region_selected_text = ' selected';
+    $region_selected_name = $region_name;
+    $region_selected_full_name = $region_full_name;
+} else {
+    $region_selected_text = '';
+}
+
+array_push($array_regions,
+  array('region_name' => $region_name,
+        'region_full_name' => $region_full_name,
+        'region_state' => $region_state,
+        'region_display_name' => $region_display_name,
+        'region_selected_text' => $region_selected_text,
+  )
+);
+
+$r++;
+
+}
+
+usort($array_regions, function ($item1, $item2) {
+    return $item1['region_display_name'] <=> $item2['region_display_name'];
+});
+
+
+
+
+
+$region = 'Philadelphia';
+
+$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region_selected_name);
 $obj = json_decode($json);
 $obj_decode = json_decode($json, TRUE);
 
-$region = 'Philadelphia';
+
 
 ?>
 
 <title><?php
-echo $region;
+echo $region_selected_full_name;
 ?> PinballMap.com Recently Added Machines</title>
 
 
@@ -43,10 +113,39 @@ echo $region;
 
 <?php
 
+$countcheckregionlist = count($array_regions);
+
+$countcheckregionlistcounter = $countcheckregionlist - 1;
+
+$l = 0;
+
+echo '<select name="region" id="region" onChange="window.document.location.href=this.options[this.selectedIndex].value;">';
+
+
+
+while($l <= $countcheckregionlistcounter){
+
+echo '<option value="https://pinballspinner.com/pinballmapapi/newmachines/index.php?region=' . $array_regions[$l]['region_name'] . '"' . $array_regions[$l]['region_selected_text'] .'>' . $array_regions[$l]['region_display_name'] . '</option>';
+
+$l++;
+
+}
+
+echo '</select>';
+
+echo $notice;
+
+?>
+
+
+
+<?php
+
 echo "<hr>";
 
-echo "<b>PinballMap.com Recently Added Machines: " . $region . " </b> | <a href=https://www.pinballmap.com/" . $region . ">https://www.pinballmap.com/" . $region . "</a><p>";
+echo "<b>PinballMap.com Recently Added Machines: " . $region_selected_full_name . " </b> | <a href=https://www.pinballmap.com/" . $region_selected_name . ">https://www.pinballmap.com/" . $region_selected_name . "</a><p>";
 
+echo "<p class='machinenote'>The following are pinball machines that have either been added or updated on PinballMap.com within the past 90 days.<p>";
 
 $countcheck = count($obj_decode['locations']);
 
@@ -58,6 +157,7 @@ $i = 0;
 
 $date_today = date('m/d/Y h:i:s a', time());
 $date_compare = date("Y-m-d", strtotime("-28 days"));
+$date_limit = date("Y/m/d", strtotime("-90 days"));
 
 while($i <= $countcheckcounter){
 
@@ -102,11 +202,20 @@ while($i <= $countcheckcounter){
           //$date_diff = date("Y-m-d", $date_today) - date("Y-m-d", $machine_updated_at);
 
           $date_diff = strtotime("now") - strtotime($machine_updated_at);
-          $date_diff = round($date_diff/ 86400);
+          $date_diff = round($date_diff/86400);
           //if($date_diff = 1) {$date_diff_1 = '';} else {$date_diff_1 = 's';}
           $date_diff_text = ' - ' . number_format($date_diff) . ' Days' . $date_diff_1 . ' Ago';
 
+          $machine_keep = 'no';
+
+          if (strtotime($machine_updated_date) > strtotime($date_limit)) {
+              $machine_keep = 'yes';
+          } else {
+              $machine_keep = 'no';
+          }
+
           $machine_last_updated_by_username = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['last_updated_by_username'];
+          if(empty($machine_last_updated_by_username)) {$machine_last_updated_by_username_check = 'admin';} else {$machine_last_updated_by_username_check = $machine_last_updated_by_username;}
           $machine_condition = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['condition'];
           $machine_id = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine_id'];
           $machine_name = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['name'];
@@ -130,12 +239,14 @@ while($i <= $countcheckcounter){
                   'location_updated_at' => $location_updated_at,
                   'location_description' => $location_description,
                   'location_last_updated_by_username' => $location_last_updated_by_username,
+                  'location_last_updated_by_username_check' => $location_last_updated_by_username_check,
                   'location_num_machines' => $location_num_machines,
                   'machine_created_at' => $machine_created_at,
                   'machine_updated_at' => $machine_updated_at,
                   'machine_created_date' => $machine_created_date,
                   'machine_updated_date' => $machine_updated_date,
                   'machine_last_updated_by_username' => $machine_last_updated_by_username,
+                  'machine_last_updated_by_username_check' => $machine_last_updated_by_username_check,
                   'machine_condition' => $machine_condition,
                   'machine_id' => $machine_id,
                   'machine_name' => $machine_name,
@@ -147,7 +258,9 @@ while($i <= $countcheckcounter){
                   'machine_link_pintips' => $machine_link_pintips,
                   'machine_type' => $machine_type,
                   'machine_type_css' => $machine_type_css,
+                  'machine_keep' => $machine_keep,
                   'date_diff_text' => $date_diff_text,
+                  'date_limit' => $date_limit,
 
                 )
             );
@@ -177,6 +290,10 @@ $t = 0;
 
 while($t <= $countchecktable){
 
+$machine_keep_check = $array_machines[$t]['machine_keep'];
+
+if($machine_keep_check === 'yes') {
+
     echo '<table>';
     echo '<tr>';
     echo '<td class="' . $array_machines[$t]['machine_type_css'] . '">' . $array_machines[$t]['machine_type'] . $array_machines[$t]['date_diff_text'] . '</td>';
@@ -200,7 +317,7 @@ while($t <= $countchecktable){
         if(empty($array_machines[$t]['machine_link_pintips'])) {} else {echo ' | <a href=' . $array_machines[$t]['machine_link_pintip'] . " target='new'>PinTips</a>";}
 
     echo '</td>';
-    echo '<td>Last Updated By: ' . $array_machines[$t]['machine_last_updated_by_username'] . '</td>';
+    echo '<td>Last Updated By: ' . $array_machines[$t]['machine_last_updated_by_username_check'] . '</td>';
     echo '</tr>';
 
     if (empty($array_machines[$t]['machine_condition'])) {
@@ -217,6 +334,9 @@ while($t <= $countchecktable){
 
     echo '</table>';
 
+
+} else {
+}
 
 $t++;
 
@@ -267,5 +387,13 @@ $t++;
 //echo "</pre>";
 
 ?>
-
+<p>
+<hr>
+PinballMap Recently Updated Machines v2.0
+<hr>
+Data: <a href='https://www.pinballmap.com/'>pinballmap.com</a>
+<br>
+Listing: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
+<br>
+GitHub: <a href='https://github.com/coreyhulse/randompinballstuff'>github repository</a>
 </div>
