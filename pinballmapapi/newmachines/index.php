@@ -224,7 +224,7 @@ while($i <= $countcheckcounter){
           $machine_ipdb_id = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['ipdb_id'];
           if(empty($machine_ipdb_id)) {$machine_link_ipdb = '';} else {$machine_link_ipdb = 'https://www.ipdb.org/machine.cgi?id=' . $machine_ipdb_id;}
           $machine_opdb_id = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['opdb_id'];
-          if(empty($machine_opdb_id)) {$machine_link_pintips = '';} else {$machine_link_pintips = 'https://www.ipdb.org/machine.cgi?id=' . $machine_opdb_id;}
+          if(empty($machine_opdb_id)) {$machine_link_pintips = '';} else {$machine_link_pintips = 'http://pintips.net/opdb/' . $machine_opdb_id;}
 
 
           array_push($array_machines,
@@ -314,7 +314,7 @@ if($machine_keep_check === 'yes') {
     echo '<td>';
         echo '<a href=' . $array_machines[$t]['location_url'] . " target='new'>PinballMap</a>";
         if(empty($array_machines[$t]['machine_link_ipdb'])) {} else {echo ' | <a href=' . $array_machines[$t]['machine_link_ipdb'] . " target='new'>IPDB</a>";}
-        if(empty($array_machines[$t]['machine_link_pintips'])) {} else {echo ' | <a href=' . $array_machines[$t]['machine_link_pintip'] . " target='new'>PinTips</a>";}
+        if(empty($array_machines[$t]['machine_link_pintips'])) {} else {echo ' | <a href=' . $array_machines[$t]['machine_link_pintips'] . " target='new'>PinTips</a>";}
 
     echo '</td>';
     echo '<td>Last Updated By: ' . $array_machines[$t]['machine_last_updated_by_username_check'] . '</td>';
@@ -389,7 +389,7 @@ $t++;
 ?>
 <p>
 <hr>
-PinballMap Recently Updated Machines v2.0
+PinballMap Recently Updated Machines v2.1
 <hr>
 Data: <a href='https://www.pinballmap.com/'>pinballmap.com</a>
 <br>
