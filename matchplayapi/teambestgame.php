@@ -5,9 +5,22 @@
         include('head.php')
     ?>
 
-<!-- Refresh the page once every 60 seconds. -->
 
-<meta http-equiv="refresh" content="60">
+<!-- autorefresh=1 can be added to the parameters of the page to enable Auto Refresh -->
+
+<?php
+if (isset($_GET['autorefresh'])) {
+
+echo "<!-- Refresh the page once every 60 seconds. -->
+";
+echo '<meta http-equiv="refresh" content="60">';
+} else {
+}
+
+?>
+
+
+
 
 <?php
 
@@ -192,6 +205,11 @@ echo $tournament;
             background-image: url("images/wonka_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
+        .game_77943 { /* Godzilla (Pro) */
+            background-image: url("images/godzilla_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+
         .rank {
             background: #2d2e36;
             text-align: center;
@@ -833,7 +851,7 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 <p>
 
 <hr>
-Team Match Play v6.0
+Team Match Play v7.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
