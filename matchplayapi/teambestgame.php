@@ -5,9 +5,19 @@
         include('head.php')
     ?>
 
-<!-- Refresh the page once every 60 seconds. -->
+<!-- autorefresh=1 can be added to the parameters of the page to enable Auto Refresh -->
 
-<meta http-equiv="refresh" content="60">
+<?php
+if (isset($_GET['autorefresh'])) {
+
+echo "<!-- Refresh the page once every 60 seconds. -->
+";
+echo '<meta http-equiv="refresh" content="60">';
+} else {
+}
+
+?>
+
 
 <?php
 
@@ -850,7 +860,7 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 <p>
 
 <hr>
-Team Match Play v6.0
+Team Match Play v7.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
