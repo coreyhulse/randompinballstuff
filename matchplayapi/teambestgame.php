@@ -168,6 +168,10 @@ echo $tournament;
             background-image: url("images/fathom_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
+        .game_77943 { /* Godzilla */
+            background-image: url("images/godzilla_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
         .game_71810 { /* Jurassic Park Premium */
             background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;

@@ -1,9 +1,0 @@
-[06-Apr-2022 16:07:07 America/Boise] PHP Warning:  Undefined array key 0 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 53
-[06-Apr-2022 16:07:07 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 53
-[06-Apr-2022 16:07:07 America/Boise] PHP Warning:  Undefined variable $notice in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 214
-[06-Apr-2022 16:07:07 America/Boise] PHP Warning:  Undefined array key 0 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 217
-[06-Apr-2022 16:07:07 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 217
-[06-Apr-2022 16:07:07 America/Boise] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php:217
-Stack trace:
-#0 {main}
-  thrown in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 217
