@@ -5,22 +5,9 @@
         include('head.php')
     ?>
 
+<!-- Refresh the page once every 60 seconds. -->
 
-<!-- autorefresh=1 can be added to the parameters of the page to enable Auto Refresh -->
-
-<?php
-if (isset($_GET['autorefresh'])) {
-
-echo "<!-- Refresh the page once every 60 seconds. -->
-";
-echo '<meta http-equiv="refresh" content="60">';
-} else {
-}
-
-?>
-
-
-
+<meta http-equiv="refresh" content="60">
 
 <?php
 
@@ -63,7 +50,7 @@ $fontsize = 24;
 $tournament = $obj->name;
 $url_label = $obj->url_label;
 $games_per_round = $obj->games_per_round;
-$round_status = $obj_results[0][status];
+$round_status = $obj_results[0]['status'];
 
 
 ?>
@@ -205,11 +192,6 @@ echo $tournament;
             background-image: url("images/wonka_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
-        .game_77943 { /* Godzilla (Pro) */
-            background-image: url("images/godzilla_translite.jpg");
-            color: rgba(255, 255, 255, 0.0) !important;
-        }
-
         .rank {
             background: #2d2e36;
             text-align: center;
@@ -232,7 +214,20 @@ echo $tournament;
 echo $notice;
 
 
-$countcheck = count($obj_results[0][games]);
+
+if(is_array($obj_results[0]['games'])){
+    $countcheck = count($obj_results[0]['games']);
+}
+else {
+    $countcheck = 0;
+}
+
+
+
+
+
+
+
 
 echo "<hr>";
 
@@ -264,35 +259,35 @@ $groupcheck = '';
 
 while($i <= $countcheckcounter){
 
-  $value = $obj_results[0][games][$i][players][0][name];
+  $value = $obj_results[0]['games'][$i]['players'][0]['name'];
 
   $name_check = array_search($value, array_column($array_test,'namecheck'));
 
-      $namecheck = $obj_results[0][games][$i][players][0][name];
-      $arenaid = $obj_results[0][games][$i][arena_id];
-      $gamestatus = $obj_results[0][games][$i][status];
+      $namecheck = $obj_results[0]['games'][$i]['players'][0]['name'];
+      $arenaid = $obj_results[0]['games'][$i]['arena_id'];
+      $gamestatus = $obj_results[0]['games'][$i]['status'];
       if($gamestatus === 'complete'){
         $groupcompletegamecount = 1;
       } else {$groupcompletegamecount = 0;}
-      $arenaname_check = array_search($arenaid, array_column($obj_decode[arenas],'arena_id'));
+      $arenaname_check = array_search($arenaid, array_column($obj_decode['arenas'],'arena_id'));
       $arenaname = $obj->arenas[$arenaname_check]->name;
-      $name0 = $obj_results[0][games][$i][players][0][name];
-      $sort0 = $obj_results[0][games][$i][players][0][player_id];
-      $results0_check = array_search($sort0, array_column($obj_results[0][games][$i][results],'player_id'));
-      $score0 = $obj_results[0][games][$i][results][$results0_check][score];
-      $name1 = $obj_results[0][games][$i][players][1][name];
-      $sort1 = $obj_results[0][games][$i][players][1][player_id];
-      $results1_check = array_search($sort1, array_column($obj_results[0][games][$i][results],'player_id'));
-      $score1 = $obj_results[0][games][$i][results][$results1_check][score];
-      $name2 = $obj_results[0][games][$i][players][2][name];
-      $sort2 = $obj_results[0][games][$i][players][2][player_id];
-      $results2_check = array_search($sort2, array_column($obj_results[0][games][$i][results],'player_id'));
-      $score2 = $obj_results[0][games][$i][results][$results2_check][score];
-      $name3 = $obj_results[0][games][$i][players][3][name];
+      $name0 = $obj_results[0]['games'][$i]['players'][0]['name'];
+      $sort0 = $obj_results[0]['games'][$i]['players'][0]['player_id'];
+      $results0_check = array_search($sort0, array_column($obj_results[0]['games'][$i]['results'],'player_id'));
+      $score0 = $obj_results[0]['games'][$i]['results'][$results0_check]['score'];
+      $name1 = $obj_results[0]['games'][$i]['players'][1]['name'];
+      $sort1 = $obj_results[0]['games'][$i]['players'][1]['player_id'];
+      $results1_check = array_search($sort1, array_column($obj_results[0]['games'][$i]['results'],'player_id'));
+      $score1 = $obj_results[0]['games'][$i]['results'][$results1_check]['score'];
+      $name2 = $obj_results[0]['games'][$i]['players'][2]['name'];
+      $sort2 = $obj_results[0]['games'][$i]['players'][2]['player_id'];
+      $results2_check = array_search($sort2, array_column($obj_results[0]['games'][$i]['results'],'player_id'));
+      $score2 = $obj_results[0]['games'][$i]['results'][$results2_check]['score'];
+      $name3 = $obj_results[0]['games'][$i]['players'][3]['name'];
       //if(empty($name3)){$name3 = 'Absent Pinballer';} else {}
-      $sort3 = $obj_results[0][games][$i][players][3][player_id];
-      $results3_check = array_search($sort3, array_column($obj_results[0][games][$i][results],'player_id'));
-      $score3 = $obj_results[0][games][$i][results][$results3_check][score];
+      $sort3 = $obj_results[0]['games'][$i]['players'][3]['player_id'];
+      $results3_check = array_search($sort3, array_column($obj_results[0]['games'][$i]['results'],'player_id'));
+      $score3 = $obj_results[0]['games'][$i]['results'][$results3_check]['score'];
       //if($name3 === 'Absent Pinballer'){
       //  $score3 = floor(($score0 + $score1 + $score2)/3);
       //} else {}
@@ -473,7 +468,7 @@ $points3total = $points3total + $points3;
 $points4total = $points4total + $points4;
 
 
-$gamecheck = $array_test[$i][arenaname];
+$gamecheck = $array_test[$i]['arenaname'];
 
 if($gamecheck !== $gamecheckprior)
 {
@@ -498,7 +493,7 @@ else {
   if($gamerank == 7) {$gamepoints = 1;}
   if($gamerank > 7) {$gamepoints = 0;}
 
-  if(number_format($array_test[$i][teamgamescore]) == 0)
+  if(number_format($array_test[$i]['teamgamescore']) == 0)
   {
     $gameranktable = '?';
     $gamepointstable = 0;
@@ -513,35 +508,35 @@ else {
 
 
 
-//echo "<tr class='team" . $array_test[$i][groupnumber] . " " . $sectionbreak . "'>";
+//echo "<tr class='team" . $array_test[$i]['groupnumber'] . " " . $sectionbreak . "'>";
 echo "<tr class='team" . " " . $sectionbreak . "'>";
 
 if($gamecheck !== $gamecheckprior)
 {
-echo "<td class='game_" . $array_test[$i][arenaid] . "' rowspan=" . $igroup . ">Game: " . $array_test[$i][arenaname] . "</td>";
+echo "<td class='game_" . $array_test[$i]['arenaid'] . "' rowspan=" . $igroup . ">Game: " . $array_test[$i]['arenaname'] . "</td>";
 }
-echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][teamname] . "</td>";
+echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['teamname'] . "</td>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
-echo "<td class='rank team" . $array_test[$i][groupnumber] . "_dark'>" . $gamepointstable . "</td>";
-echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name1] . "</td>";
-echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score1]) . "</td>";
-echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name2] . "</td>";
-echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score2]) . "</td>";
-echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name3] . "</td>";
-echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score3]) . "</td>";
-echo "<td class='team" . $array_test[$i][groupnumber] . "'>" . $array_test[$i][name4] . "</td>";
-echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "_dark'>" . number_format($array_test[$i][score4]) . "</td>";
-echo "<td class='tabularData team" . $array_test[$i][groupnumber] . "'><b>" . number_format($array_test[$i][teamgamescore]) . "</b></td>";
+echo "<td class='rank team" . $array_test[$i]['groupnumber'] . "_dark'>" . $gamepointstable . "</td>";
+echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['name1'] . "</td>";
+echo "<td class='tabularData team" . $array_test[$i]['groupnumber'] . "_dark'>" . number_format($array_test[$i]['score1']) . "</td>";
+echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['name2'] . "</td>";
+echo "<td class='tabularData team" . $array_test[$i]['groupnumber'] . "_dark'>" . number_format($array_test[$i]['score2']) . "</td>";
+echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['name3'] . "</td>";
+echo "<td class='tabularData team" . $array_test[$i]['groupnumber'] . "_dark'>" . number_format($array_test[$i]['score3']) . "</td>";
+echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['name4'] . "</td>";
+echo "<td class='tabularData team" . $array_test[$i]['groupnumber'] . "_dark'>" . number_format($array_test[$i]['score4']) . "</td>";
+echo "<td class='tabularData team" . $array_test[$i]['groupnumber'] . "'><b>" . number_format($array_test[$i]['teamgamescore']) . "</b></td>";
 
 echo "</tr>".PHP_EOL;
 
 array_push($array_total,
-  array($array_test[$i][groupname] => $gamepointstable,
+  array($array_test[$i]['groupname'] => $gamepointstable,
     )
   );
 
 array_push($array_total_2,
-  array('team' => $array_test[$i][groupname] . '|' . $array_test[$i][groupnumber] . '|' . $array_test[$i][teamname],
+  array('team' => $array_test[$i]['groupname'] . '|' . $array_test[$i]['groupnumber'] . '|' . $array_test[$i]['teamname'],
         'gamepointstable' => $gamepointstable,
         'gamegroupcount' => $gamegroupcount,
         'groupcompletegamecount' => $groupcompletegamecount,
@@ -648,13 +643,13 @@ echo "</tr>";
 
 foreach ($sums_2 as $item) {
 
-    $teamexplode = explode('|',$item[team]);
+    $teamexplode = explode('|',$item['team']);
 
     echo "<tr class='team" . $teamexplode[1] . "'>";
     echo "<td><b>". $teamexplode[2] ."</b></td>";
     echo "<td><b>". $teamexplode[0] ."</b></td>";
-    echo "<td class='rank'><b>". $item[gamepointstable] ."</b></td>";
-    echo "<td class='rank'><b>". $item[gamegroupcount] ."</b></td>";
+    echo "<td class='rank'><b>". $item['gamepointstable'] ."</b></td>";
+    echo "<td class='rank'><b>". $item['gamegroupcount'] ."</b></td>";
 
     echo "</tr>";
 
@@ -708,7 +703,7 @@ $points4 = 0;
 $teampoints = 0;
 
 
-$gamecheck = $array_games[$i][arenaname];
+$gamecheck = $array_games[$i]['arenaname'];
 
 if($gamecheck !== $gamecheckprior)
 {
@@ -720,7 +715,7 @@ if($gamecheck !== $gamecheckprior)
   echo "<table class='totalsTable'>";
 
   echo "<tr>";
-  echo "<td colspan=4><b>" . $array_games[$i][arenaname] . "</b></td>";
+  echo "<td colspan=4><b>" . $array_games[$i]['arenaname'] . "</b></td>";
   echo "</tr>";
   echo "<tr>";
   echo "<td><b>Rank</b></td>";
@@ -745,7 +740,7 @@ else {}
   if($gamerank < 25) {$gamepoints = 26 - $gamerank;}
   if($gamerank >= 25) {$gamepoints = 0;}
 
-  if(number_format($array_games[$i][score]) == 0)
+  if(number_format($array_games[$i]['score']) == 0)
   {
     $gameranktable = '?';
     $gamepointstable = 0;
@@ -762,12 +757,12 @@ else {}
 echo "<tr>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
 echo "<td class='rank'>" . $gamepointstable . "</td>";
-echo "<td class='team" . $array_games[$i][groupnumber] . "'>" . $array_games[$i][name] . "</td>";
-echo "<td class='tabularData team" . $array_games[$i][groupnumber] . "_dark'>" . number_format($array_games[$i][score]) . "</td>";
+echo "<td class='team" . $array_games[$i]['groupnumber'] . "'>" . $array_games[$i]['name'] . "</td>";
+echo "<td class='tabularData team" . $array_games[$i]['groupnumber'] . "_dark'>" . number_format($array_games[$i]['score']) . "</td>";
 echo "</tr>";
 
 
-$player_name = $array_games[$i][name] . "|" . $array_games[$i][groupnumber];
+$player_name = $array_games[$i]['name'] . "|" . $array_games[$i]['groupnumber'];
 
 $player_points = $array_player[$player_name];
 
@@ -851,7 +846,7 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 <p>
 
 <hr>
-Team Match Play v7.0
+Team Match Play v6.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
