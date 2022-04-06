@@ -65,7 +65,14 @@ echo $tournament;
 
 echo $notice;
 
-$countcheck = count($obj->players);
+
+
+if(is_array($obj->players)){
+    $countcheck = count($obj->players);
+}
+else {
+    $countcheck = 1;
+}
 
 echo "<b>Players Registered: " . $countcheck . "</b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p><hr>";
 
@@ -91,7 +98,12 @@ while($i <= $countcheckcounter){
 
 sort($names);
 
-echo max($lengths) . '<p>';
+if(is_array($lengths)){
+    echo max($lengths) . '<p>';
+}
+else {
+    echo '<p>';
+}
 
 $clength = count($names);
 for($x = 0; $x < $clength; $x++) {
