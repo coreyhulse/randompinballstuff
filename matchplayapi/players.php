@@ -74,9 +74,9 @@ else {
     $countcheck = 1;
 }
 
-echo "<b>Players Registered: " . $countcheck . "</b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p><hr>";
-
 $countcheckcounter = $countcheck - 1;
+
+$countactive = 0;
 
 $names = array();
 $i = 0;
@@ -91,10 +91,13 @@ while($i <= $countcheckcounter){
         $strike = '<strike>';
         $strikeend = '</strike>';
         } else {
+        $countactive++;
         }
     $names[] = $strike . $name . $strikeend;
     $i++;
 }
+
+echo "<b>Active Players: " . $countactive . "</b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p><hr>";
 
 sort($names);
 
