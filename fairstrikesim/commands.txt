@@ -1,0 +1,2 @@
+cd C:\Users\corey.hulse\github\randompinballstuff\fairstrikesim
+python fairstrikesim_arg.py 
