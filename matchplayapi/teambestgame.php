@@ -173,6 +173,14 @@ echo $tournament;
         .team8_dark {
             background: rgba(204,204,204,0.40);
         }
+        .game_90485 { /* Alien */
+            background-image: url("images/alien_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_86179 { /* Avengers Infinity Quest */
+            background-image: url("images/avengers_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
         .game_32851 { /* Batman 66 */
             background-image: url("images/batman66_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
@@ -181,16 +189,24 @@ echo $tournament;
             background-image: url("images/fathom_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
+        .game_2916 { /* Funhouse */
+            background-image: url("images/funhouse_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_86867 { /* Funhouse 2.0 */
+            background-image: url("images/funhouse2_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
         .game_71810 { /* Jurassic Park Premium */
+            background-image: url("images/jurassicpark_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_96401 { /* Jurassic Park Premium */
             background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
         .game_31874 { /* Metallica */
             background-image: url("images/metallica_translite.jpg");
-            color: rgba(255, 255, 255, 0.0) !important;
-        }
-        .game_2916 { /* Funhouse */
-            background-image: url("images/funhouse_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
         .game_71811 { /* Quicksilver */
@@ -199,6 +215,10 @@ echo $tournament;
         }
         .game_2915 { /* The Simpsons Pinball Party */
             background-image: url("images/simpsons_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+        }
+        .game_2918 { /* The Simpsons Pinball Party */
+            background-image: url("images/theatre_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
         }
         .game_49946 { /* Wonka (LE) */
@@ -851,7 +871,7 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 <p>
 
 <hr>
-Team Match Play v7.0
+Team Match Play v8.0
 <hr>
 Data: <a href='http://matchplay.events'>matchplay.events</a>
 <br>
