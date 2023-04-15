@@ -11,8 +11,7 @@
 <?php
 if (isset($_GET['autorefresh'])) {
 
-echo "<!-- Refresh the page once every 60 seconds. -->
-";
+echo "<!-- Refresh the page once every 60 seconds. -->";
 echo '<meta http-equiv="refresh" content="60">';
 } else {
 }
@@ -743,71 +742,45 @@ usort($sums_2, function ($a, $b) {
 // Team Totals
 // ********************
 
-
-// Variables for Loop
 $countcheck = count($sums_2);
 
 $countcheckcounter = $countcheck - 1;
 
-//Set Counter to 0
 $i = 0;
 
-// Main Team Totals Header
-
 echo "<h1>Team Totals</h1>";
+echo "<table class='totalsTable'>";
+/* if($round_status == "completed")
+{
+  echo "<tr>";
+  echo "<td colspan=4>ROUND COMPLETE</td>";
+  echo "</tr>";
+}
+else {
+  echo "<tr>";
+  echo "<td colspan=4>ROUND NOT COMPLETE. Mark the round complete in MatchPlay to finalize standings.</td>";
+  echo "</tr>";
+} */
 
-// Table for wrapping around the team totals
-
-echo "<table>";
 echo "<tr>";
-
-// Start of the Loop for Each Team
+echo "<th>Team</th>";
+echo "<th>Players</th>";
+echo "<th>Points</th>";
+echo "<th>Played</th>";
+echo "</tr>";
 
 foreach ($sums_2 as $item) {
 
-    // Establish the Rank of the Team
-     
-    $i = $i+1;
-
-    // Header for each team
-
-    echo "<td>";
-    echo "<table class='totalsTable'>";
-    echo "<tr>";
-    echo "<th>RANK</th>";
-    echo "<th>TEAM</th>";
-    echo "<th>POINTS</th>";
-    echo "<th>PLAYS</th>";
-    echo "</tr>";
-
-    // Line Info for Each Team
-
-    $teamexplode = explode('|',$item[team]);  // Break up the team elements
-
-    echo "<tr class='team" . $teamexplode[1] . "'>";  // css call for colors
-    echo "<td>". $i ."</td>";  // rank
-    echo "<td>". $teamexplode[2] ."</td>";  // team
-    echo "<td class='rank'>". $item[gamepointstable] ."</td>";  // points
-    echo "<td class='rank'>". $item[gamegroupcount] ."</td>";  // game count
-    echo "</tr>";
-
-    // Team member names
+    $teamexplode = explode('|',$item[team]);
 
     echo "<tr class='team" . $teamexplode[1] . "'>";
-    echo "<td colspan=4>". $teamexplode[0] ."</td>";
+    echo "<td>". $teamexplode[2] ."</td>";
+    echo "<td>". $teamexplode[0] ."</td>";
+    echo "<td class='rank'>". $item[gamepointstable] ."</td>";
+    echo "<td class='rank'>". $item[gamegroupcount] ."</td>";
     echo "</tr>";
-
-    echo "</table>";
-    
-    // Empty TD element for spacing
-
-    echo "</td>";
-    echo "<td width=20>";
-    echo "</td>";
-
   }
 
-echo "</tr>";
 echo "</table>";
 
 
@@ -967,6 +940,6 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 </div>
 <!-- FOOTER AREA -->
 	
-  <div class="footer">Team Match Play v9.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+  <div class="footer">Team Match Play v8.0.1 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
 
 </body>

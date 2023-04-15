@@ -29,13 +29,13 @@ echo '<meta http-equiv="refresh" content="60">';
 if (isset($_GET['matchplaylink'])) {
 $matchplaylink = $_GET['matchplaylink'];
 } else {
-$notice = "<div class='errorNotice'><p>No MatchPlay link provided.</p><p>The URL should include a valid MatchPlay.events tournament code. For example:</p>
-<ul>
-<li>players.php?matchplaylink=summerclassic2019</li>
-<li>players.php?matchplaylink=0bbr3</li>
-</ul>
-<p>You can also change the font size by adding the fontsize variable:
-<i>players.php?matchplaylink=summerclassic2019&fontsize=36</i><p></div>";
+$notice = "No MatchPlay link provided.<p>The URL should include a valid MatchPlay.events tournament code.  For example:<br>
+<i>players.php?matchplaylink=summerclassic2019</i><br>
+<i>players.php?matchplaylink=0bbr3</i><p>
+You can also change the font size by adding the fontsize variable:
+<i>players.php?matchplaylink=summerclassic2019&fontsize=36</i><p>"
+
+;
 }
 
 // Query the various JSON blobs from MatchPlay
@@ -72,29 +72,23 @@ $round_status = $obj_results[0][status];
 echo $tournament;
 ?> MatchPlay Team Best Game</title>
 
+
 <!-- Stylesheet -->
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
-		body {
-			margin: 0px 25px 0px 25px;
-			/* margin-top: 0px;
-			margin-bottom: 0px;
-			margin-left: 25px;
-			margin-right: 25px; */
-			background: #18181c;
-		}
+        <style>
+        body {
+            margin: 50px;
+        }
         .my_text {
-			font-family: 'Roboto', sans-serif;
-			font-weight: 300;
-			margin-left: 20px;
-			margin-right: 20px;
+            /*font-family: 'Open Sans', sans-serif;*/
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            color: #FFFFFF;
         }
         .tabularData {
             font-family: 'Roboto Mono', monospace;
             font-size: 24px;
             font-weight: 400;
             text-align: right;
-			white-space: nowrap;
         }
         table.standingsTable {
             background-color: #2D2E36;
@@ -103,9 +97,8 @@ echo $tournament;
             border-collapse: collapse;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10px;
-            margin-bottom: 40px;
-			border-bottom: 2px solid #FFFFFF;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
         table.totalsTable {
             background-color: #2D2E36;
@@ -115,253 +108,142 @@ echo $tournament;
             margin-bottom: 20px;
         }
         table.standingsTable td, table.totalsTable td {
-			border-top: 1px solid #18181C;
-			border-right: 0px;
-			border-bottom: 1px solid #18181C; 
-			border-left: 0px;
-            padding: 8px;
-            font-size: 15px;
-            color: rgba(255, 255, 255, 1);
+            border: 2px solid #18181C;
+            padding: 3px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        table.standingsTable .zebraA {
+            background: #26252C;
+        }
+        table.standingsTable .zebraB {
+            background: #2d2e36;
         }
         tr.sectionBreak {
-            border-top: 2px solid #FFFFFF !important;
+            border-top: 4px solid #FFFFFF !important;
         }
         a:link, a:visited {
             color: #4578ed;
         }
         .team1 {
             background: #70943e; /*Green General Illumination*/
-			white-space: nowrap;
         }
         .team2 {
             background: #4b6186; /*Blue Bumpers*/
-			white-space: nowrap;
         }
         .team3 {
             background: #e37a49; /*Coral Kickbacks*/
-			white-space: nowrap;
         }
         .team4 {
             background: #713d65; /*Violet Vari-Targets*/
-			white-space: nowrap;
         }
         .team5 {
             background: #3f7a74; /*Teal Tilt Bobs*/
-			white-space: nowrap;
         }
         .team6 {
             background: #d32d4a; /*Fuschia Flipper*/
-			white-space: nowrap;
         }
         .team7 {
             background: #cc0000; /*Red Replays*/
-			white-space: nowrap;
         }
         .team8 {
             background: #444444; /*Silver Spinners*/
-			white-space: nowrap;
         }
         .team1_dark {
-            background: rgba(112,148,62,0.60);
+            background: rgba(112,148,62,0.40);
         }
         .team2_dark {
-            background: rgba(75,97,134,0.60);
+            background: rgba(75,97,134,0.40);
         }
         .team3_dark {
-            background: rgba(227,122,74,0.60);
+            background: rgba(227,122,74,0.40);
         }
         .team5_dark {
-            background: rgba(63,121,116,0.60);
+            background: rgba(63,121,116,0.40);
         }
         .team4_dark {
-            background: rgba(113,61,101,0.60);
+            background: rgba(113,61,101,0.40);
         }
         .team6_dark {
-            background: rgba(211,45,74,0.60);
+            background: rgba(211,45,74,0.40);
         }
         .team7_dark {
-            background: rgba(204,0,0,0.60);
+            background: rgba(204,0,0,0.40);
         }
         .team8_dark {
-            background: rgba(204,204,204,0.60);
+            background: rgba(204,204,204,0.40);
         }
         .game_90485 { /* Alien */
             background-image: url("images/alien_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-repeat: no-repeat;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_86179 { /* Avengers Infinity Quest */
             background-image: url("images/avengers_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_32851 { /* Batman 66 */
             background-image: url("images/batman66_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_2513 { /* Fathom */
             background-image: url("images/fathom_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-    		border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
-	    }
+        }
         .game_2916 { /* Funhouse */
             background-image: url("images/funhouse_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_86867 { /* Funhouse 2.0 */
             background-image: url("images/funhouse2_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_71810 { /* Jurassic Park Premium */
             background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_96401 { /* Jurassic Park Premium */
             background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_31874 { /* Metallica */
             background-image: url("images/metallica_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_71811 { /* Quicksilver */
             background-image: url("images/quicksilver_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_2915 { /* The Simpsons Pinball Party */
             background-image: url("images/simpsons_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_2918 { /* The Simpsons Pinball Party */
             background-image: url("images/theatre_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_49946 { /* Wonka (LE) */
             background-image: url("images/wonka_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
         .game_77943 { /* Godzilla (Pro) */
             background-image: url("images/godzilla_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
         }
+
         .rank {
             background: #2d2e36;
             text-align: center;
-			border-left: 1px solid #000000 !important;
-			
         }
-		.footer {
-			background: #302E2F;
-			padding: 12px;
-			font-family: 'Roboto', sans-serif;
-    		font-size: 12px;
-    		color: #FFFFFF;
-    		font-weight: 300;
-		}
-		.pageHeader {
-			background-color: darkgoldenrod;
-			padding: 10px;
-			margin-bottom: 20px;
-			font-family: 'Roboto Slab', serif;
-			font-size: 16px;
-			color: gold;
-			text-transform: uppercase;
-			font-weight: 700;
-			letter-spacing: 3px;
-}
-		.pageHeader a {
-			color: #3F3212;
-			font-size: 14px;
-			text-transform: none;
-			letter-spacing: normal;
-			font-weight: 400;
-		}
-		.pageheader .notice{
-			color: #3F3212;
-			float: right;
-			letter-spacing: normal;
-		}
-		h1 {
-			font-family: 'Roboto Slab', serif;
-			font-size: 16px;
-			color: gold;
-			text-transform: uppercase;
-			font-weight: 700;
-			letter-spacing: 3px;
-			margin: 5px;
-		}
-		th {
-			text-transform: uppercase;
-			font-size: 12px !important;
-			font-weight: 700;
-			color: white;
-			background: #18181c;
-			padding: 4px;
-		}
-		.totalsTable .gameName {
-			font-family: 'Roboto Slab', serif;
-			font-size: 14px;
-			color: gold;
-			font-weight: 700;
-			background-color: #18181c !important;
-		}
-		.errorNotice {
-			background-color: red;
-			color: white;
-			font-family: 'Roboto Slab', serif;
-			font-size: 14px;
-			color: white;
-			font-weight: 700;
-			padding: 20px;
-			margin-bottom: 20px;
-		}
-	</style>
+
+        </style>
+
 </head>
 
 
 
-<body>
+<body bgcolor="#18181c">
 <!-- Entire body is part of this div class-->
-
+<div class="my_text">
 
 
 <?php
@@ -369,31 +251,27 @@ echo $tournament;
 // In case it's a bad MatchPlay link
 echo $notice;
 
+
 $countcheck = count($obj_results[0][games]);
-	
-// ********************
-// HEADER
-// ********************	
 
-echo "<div class='PageHeader'>MatchPlay Pinball Teams: " . $tournament . "  <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a>";
-if($round_status == "completed")
-	{
-	  echo "<span class='notice'>ROUND COMPLETE</span></div>";
-	}
-	else {
-	  echo "<span class='notice'>Mark complete in MatchPlay.</span></div>";
-	}
+echo "<hr>";
 
-echo "<div class='my_text'>";
-	
+echo "<b>MatchPlay Pinball Teams:<br>" . $tournament . " </b> | <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a><p>";
+
 $countcheckcounter = $countcheck - 1;
 
 $names = array();
+
 $array_test = array();
+
 $array_total = array();
+
 $array_games = array();
+
 $array_total_2 = array();
+
 $array_player = array();
+
 $array_player_sum = array();
 
 $i = 0;
@@ -465,6 +343,10 @@ while($i <= $countcheckcounter){
       if($igroup > 8){$teamname = 'Pinball Team ' . $igroup;}
 
 
+
+
+
+
        array_push($array_games,
          array('arenaname' => $arenaname,
                'name' => $name0,
@@ -472,6 +354,7 @@ while($i <= $countcheckcounter){
                'groupnumber' => $igroup,
                'teamname' => $teamname,
               )
+
        );
        array_push($array_games,
          array('arenaname' => $arenaname,
@@ -480,6 +363,7 @@ while($i <= $countcheckcounter){
                'groupnumber' => $igroup,
                'teamname' => $teamname,
               )
+
        );
        array_push($array_games,
          array('arenaname' => $arenaname,
@@ -488,6 +372,7 @@ while($i <= $countcheckcounter){
                'groupnumber' => $igroup,
                'teamname' => $teamname,
               )
+
        );
        array_push($array_games,
          array('arenaname' => $arenaname,
@@ -496,6 +381,7 @@ while($i <= $countcheckcounter){
                'groupnumber' => $igroup,
                'teamname' => $teamname,
               )
+
        );
 
 
@@ -561,26 +447,28 @@ $i = 0;
 
 
 
-// ********************
 // Standings Table
-// ********************
 
-echo "<h1>Standings</h1>";
+echo "<hr>Standings Table:<br>";
+
 echo "<table class='standingsTable'>";
-echo "<tr>";
-echo "<th>Game</th>";
-echo "<th>Team</th>";
-echo "<th>Rank</th>";
-echo "<th>Points</th>";
-echo "<th>Player 1</th>";
-echo "<th>Score</th>";
-echo "<th>Player 2</th>";
-echo "<th>Score</th>";
-echo "<th>Player 3</th>";
-echo "<th>Score</th>";
-echo "<th>Player 4</th>";
-echo "<th>Score</th>";
-echo "<th>Avg Score</th>";
+
+echo "<tr class='sectionBreak'>";
+
+echo "<td><b>Game Name</b></td>";
+echo "<td><b>Team</b></td>";
+echo "<td><b>Rank</b></td>";
+echo "<td><b>Points</b></td>";
+echo "<td><b>Player 1</b></td>";
+echo "<td><b>Score</b></td>";
+echo "<td><b>Player 2</b></td>";
+echo "<td><b>Score</b></td>";
+echo "<td><b>Player 3</b></td>";
+echo "<td><b>Score</b></td>";
+echo "<td><b>Player 4</b></td>";
+echo "<td><b>Score</b></td>";
+echo "<td><b>Avg Score</b></td>";
+
 echo "</tr>";
 
 $points1total = 0;
@@ -739,82 +627,75 @@ usort($sums_2, function ($a, $b) {
 });
 
 
-// ********************
-// Team Totals
-// ********************
+// Updated Team Totals
 
-
-// Variables for Loop
 $countcheck = count($sums_2);
 
 $countcheckcounter = $countcheck - 1;
 
-//Set Counter to 0
 $i = 0;
 
-// Main Team Totals Header
+echo "<hr>Team Totals Table:<br>";
 
-echo "<h1>Team Totals</h1>";
+echo "<table class='totalsTable'>";
 
-// Table for wrapping around the team totals
+if($round_status == "completed")
 
-echo "<table>";
+{
+  echo "<tr>";
+
+  echo "<td colspan=4>ROUND COMPLETE</td>";
+
+  echo "</tr>";
+
+}
+else {
+  echo "<tr>";
+
+  echo "<td colspan=4>ROUND NOT COMPLETE.<br>Mark the round complete in MatchPlay to finalize standings.</td>";
+
+  echo "</tr>";
+}
+
 echo "<tr>";
 
-// Start of the Loop for Each Team
+echo "<td><b>Team</b></td>";
+echo "<td><b>Players</b></td>";
+echo "<td><b>Points</b></td>";
+echo "<td><b>Played</b></td>";
+
+echo "</tr>";
 
 foreach ($sums_2 as $item) {
 
-    // Establish the Rank of the Team
-     
-    $i = $i+1;
-
-    // Header for each team
-
-    echo "<td>";
-    echo "<table class='totalsTable'>";
-    echo "<tr>";
-    echo "<th>RANK</th>";
-    echo "<th>TEAM</th>";
-    echo "<th>POINTS</th>";
-    echo "<th>PLAYS</th>";
-    echo "</tr>";
-
-    // Line Info for Each Team
-
-    $teamexplode = explode('|',$item[team]);  // Break up the team elements
-
-    echo "<tr class='team" . $teamexplode[1] . "'>";  // css call for colors
-    echo "<td>". $i ."</td>";  // rank
-    echo "<td>". $teamexplode[2] ."</td>";  // team
-    echo "<td class='rank'>". $item[gamepointstable] ."</td>";  // points
-    echo "<td class='rank'>". $item[gamegroupcount] ."</td>";  // game count
-    echo "</tr>";
-
-    // Team member names
+    $teamexplode = explode('|',$item[team]);
 
     echo "<tr class='team" . $teamexplode[1] . "'>";
-    echo "<td colspan=4>". $teamexplode[0] ."</td>";
+    echo "<td><b>". $teamexplode[2] ."</b></td>";
+    echo "<td><b>". $teamexplode[0] ."</b></td>";
+    echo "<td class='rank'><b>". $item[gamepointstable] ."</b></td>";
+    echo "<td class='rank'><b>". $item[gamegroupcount] ."</b></td>";
+
     echo "</tr>";
-
-    echo "</table>";
-    
-    // Empty TD element for spacing
-
-    echo "</td>";
-    echo "<td width=20>";
-    echo "</td>";
 
   }
 
-echo "</tr>";
 echo "</table>";
 
 
-// ********************
+//
+// echo "<hr>";
+// print_r($array_total_2);
+// echo "<hr>";
+//
+// echo "<hr>";
+// print_r($sums_2);
+// echo "<hr>";
+
+
+
 // Individual Standings
-// ********************
-	
+
 $countcheckgames = count($array_games);
 
 $countcheckgamescounter = $countcheckgames - 1;
@@ -823,10 +704,12 @@ $i = 0;
 
 $player_points = 0;
 
-echo "<h1>Individual Standings</h1>";
+echo "<hr>Individual Standings Table:<br>";
+
 echo "<table>";
 echo "<tr>";
 echo "<td>";
+
 echo "<table>";
 
 $indgamename = 0;
@@ -857,15 +740,15 @@ if($gamecheck !== $gamecheckprior)
   echo "<table class='totalsTable'>";
 
   echo "<tr>";
-  //echo "<td class='game_" . $array_test[$i][arenaid] . "' colspan=4>" . $array_games[$i][arenaname] . "</td>";
-  echo "<th class='gameName' colspan=4>" . $array_games[$i][arenaname] . "</th>";
+  echo "<td colspan=4><b>" . $array_games[$i][arenaname] . "</b></td>";
   echo "</tr>";
   echo "<tr>";
-  echo "<th>Rank</th>";
-  echo "<th>Points</th>";
-  echo "<th>Player</th>";
-  echo "<th>Score</th>";
+  echo "<td><b>Rank</b></td>";
+  echo "<td><b>Points</b></td>";
+  echo "<td><b>Player</b></td>";
+  echo "<td><b>Score</b></td>";
   echo "</tr>";
+
 
   if($tablecolor === '#dddddd')
   {$tablecolor = '#ffffff';}
@@ -895,12 +778,14 @@ else {}
     $gamegroupcount = 1;
   }
 
+
 echo "<tr>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
 echo "<td class='rank'>" . $gamepointstable . "</td>";
 echo "<td class='team" . $array_games[$i][groupnumber] . "'>" . $array_games[$i][name] . "</td>";
 echo "<td class='tabularData team" . $array_games[$i][groupnumber] . "_dark'>" . number_format($array_games[$i][score]) . "</td>";
 echo "</tr>";
+
 
 $player_name = $array_games[$i][name] . "|" . $array_games[$i][groupnumber];
 
@@ -909,34 +794,44 @@ $player_points = $array_player[$player_name];
 $array_player[$player_name] = $gamepointstable + $player_points;
 
     $gamecheckprior = $gamecheck;
+
     $i++;
     $gamerank++;
 
+
 }
+
+
+
 
   echo "</table>";
   echo "</tr>";
   echo "</td>";
   echo "</table>";
 
+
   // Sort the array in descending order of values
   arsort($array_player);
 
 
 
-  // Individual Totals
+  // Individual Total Standings
 
   $countcheckplayer = count($array_player);
+
   $countcheckplayercounter = $countcheckplayer - 1;
+
   $i = 0;
+
   $player_points = 0;
 
-  echo "<h1>Individual Totals</h1>";
+  echo "<hr>Individual Totals Table:<br>";
+
   echo "<table class='totalsTable'>";
   echo "<tr>";
-  echo "<th>Rank</th>";
-  echo "<th>Player</th>";
-  echo "<th>Points</th>";
+  echo "<td><b>Rank</b></td>";
+  echo "<td><b>Player</b></td>";
+  echo "<td><b>Points</b></td>";
   echo "</tr>";
 
   $totalplayer = 0;
@@ -946,7 +841,9 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 
   foreach ($array_player as $key => $val) {
 
+
   $playerexplode = explode('|',$key);
+
 
   echo "<tr>";
   echo "<td class='rank'>" . $gamerank . "</td>";
@@ -956,17 +853,31 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 
   $gamerank++;
 
+
   }
 
-	echo "</table>";
-	echo "</tr>";
-	echo "</td>";
-	echo "</table>";
+
+
+
+    echo "</table>";
+    echo "</tr>";
+    echo "</td>";
+    echo "</table>";
+
+
+
 
 ?>
-</div>
-<!-- FOOTER AREA -->
-	
-  <div class="footer">Team Match Play v9.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+<p>
 
+<hr>
+Team Match Play v8.0
+<hr>
+Data: <a href='http://matchplay.events'>matchplay.events</a>
+<br>
+Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a>
+<br>
+CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a>
+
+</div>
 </body>
