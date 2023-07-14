@@ -87,7 +87,7 @@ usort($array_regions, function ($item1, $item2) {
 
 $region = 'Philadelphia';
 
-$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region_selected_name);
+$json = file_get_contents('https://pinballmap.com/api/v1/locations.json?region=' . $region_selected_name . '&with_lmx=1');
 $obj = json_decode($json);
 $obj_decode = json_decode($json, TRUE);
 
@@ -216,7 +216,8 @@ while($i <= $countcheckcounter){
 
           $machine_last_updated_by_username = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['last_updated_by_username'];
           if(empty($machine_last_updated_by_username)) {$machine_last_updated_by_username_check = 'admin';} else {$machine_last_updated_by_username_check = $machine_last_updated_by_username;}
-          $machine_condition = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['condition'];
+          //$machine_condition = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['condition'];
+          $machine_condition = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine_conditions'][0]['comment'];
           $machine_id = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine_id'];
           $machine_name = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['name'];
           $machine_manufacturer = $obj_decode['locations'][$i]['location_machine_xrefs'][$m]['machine']['manufacturer'];
