@@ -2,7 +2,7 @@
 <head>
 
     <?php
-        include('head.php')
+        //include('head.php')
     ?>
 
     <link rel="stylesheet"
