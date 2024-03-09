@@ -42,7 +42,7 @@ $notice = "<div class='errorNotice'><p>No MatchPlay link provided.</p><p>The URL
 // Query the various JSON blobs from MatchPlay
 // Documentation: https://matchplay.events/api-docs/#/Matchplay
 
-$json = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink);
+$json = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '?includePlayers=true&includeArenas=true');
 $obj = json_decode($json,TRUE);
 $obj_decode = json_decode($json, TRUE);
 
@@ -82,8 +82,8 @@ echo $tournament;
 			margin-bottom: 0px;
 			margin-left: 25px;
 			margin-right: 25px; */
-			/* background: #18181c; */
-            background: #eeeeee;
+			background: #18181c;
+            
 		}
         .my_text {
 			font-family: 'Roboto', sans-serif;
@@ -299,6 +299,13 @@ echo $tournament;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
+        .game_136109 { /* JAWS LE */
+            background-image: url("images/jaws.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+			border-right: 1px solid #18181C !important;
+			background-size: auto 150%; 
+			/* background-position: center; */
+        }
         .game_79237 { /* Mandalorian LE */
             background-image: url("images/mando_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
@@ -418,9 +425,9 @@ echo $notice;
 
 //echo '<pre>' , var_dump($obj_decode) , '</pre>';
 
-echo '<pre>' , var_dump($obj_results) , '</pre>';
+//echo '<pre>' , var_dump($obj_results) , '</pre>';
 
-echo '<pre>' , var_dump($obj_standings) , '</pre>';
+//echo '<pre>' , var_dump($obj_standings) , '</pre>';
 
 // ********************	
 // Test Area
@@ -436,7 +443,7 @@ $countcheck = count($obj_results['data']);
 // HEADER
 // ********************	
 
-echo "<div class='PageHeader'>MatchPlay Pinball Teams: " . $tournament . "  <a href=https://matchplay.live/" . $url_label . ">https://matchplay.live/" . $url_label . "</a>";
+echo "<div class='PageHeader'>MatchPlay Pinball Teams: " . $tournament . "  <a href=https://app.matchplay.events/tournaments/" . $url_label . ">https://app.matchplay.events/tournaments/" . $url_label . "</a>";
 if($round_status == "completed")
 	{
 	  echo "<span class='notice'>ROUND COMPLETE</span></div>";
@@ -467,44 +474,69 @@ $groupcheck = '';
 
 while($i <= $countcheckcounter){
 
-  $value = $obj_results['data'][0]['games'][$i]['players'][0]['name'];
+
+      $sort3 = '';
+      $name3_check = '';
+      $name3 = '';
+      $results3_check = '';
+      $score3 = '';
+
+
+
+  $value = $obj_results['data'][$i]['playerIds'][0];
 
   $name_check = array_search($value, array_column($array_test,'namecheck'));
 
-      $namecheck = $obj_results['data'][0]['games'][$i]['players'][0]['name'];
-      $arenaid = $obj_results['data'][0]['games'][$i]['arena_id'];
-      $gamestatus = $obj_results['data'][0]['games'][$i]['status'];
+      $namecheck = $obj_results['data'][$i]['playerIds'][0];
+      $arenaid = $obj_results['data'][$i]['arenaId'];
+      $gamestatus = $obj_results['data'][$i]['status'];
       if($gamestatus === 'complete'){
         $groupcompletegamecount = 1;
       } else {$groupcompletegamecount = 0;}
-      $arenaname_check = array_search($arenaid, array_column($obj_decode['arenas'],'arena_id'));
-      $arenaname = $obj->arenas[$arenaname_check]->name;
-      $name0 = $obj_results['data'][0]['games'][$i]['players'][0]['name'];
-      $sort0 = $obj_results['data'][0]['games'][$i]['players'][0]['player_id'];
-      $results0_check = array_search($sort0, array_column($obj_results['data'][0]['games'][$i]['results'],'player_id'));
-      $score0 = $obj_results['data'][0]['games'][$i]['results'][$results0_check]['score'];
-      $name1 = $obj_results['data'][0]['games'][$i]['players'][1]['name'];
-      $sort1 = $obj_results['data'][0]['games'][$i]['players'][1]['player_id'];
-      $results1_check = array_search($sort1, array_column($obj_results['data'][0]['games'][$i]['results'],'player_id'));
-      $score1 = $obj_results['data'][0]['games'][$i]['results'][$results1_check]['score'];
-      $name2 = $obj_results['data'][0]['games'][$i]['players'][2]['name'];
-      $sort2 = $obj_results['data'][0]['games'][$i]['players'][2]['player_id'];
-      $results2_check = array_search($sort2, array_column($obj_results['data'][0]['games'][$i]['results'],'player_id'));
-      $score2 = $obj_results['data'][0]['games'][$i]['results'][$results2_check]['score'];
-      $name3 = $obj_results['data'][0]['games'][$i]['players'][3]['name'];
-      //if(empty($name3)){$name3 = 'Absent Pinballer';} else {}
-      $sort3 = $obj_results['data'][0]['games'][$i]['players'][3]['player_id'];
-      $results3_check = array_search($sort3, array_column($obj_results['data'][0]['games'][$i]['results'],'player_id'));
-      $score3 = $obj_results['data'][0]['games'][$i]['results'][$results3_check]['score'];
-      //if($name3 === 'Absent Pinballer'){
-      //  $score3 = floor(($score0 + $score1 + $score2)/3);
-      //} else {}
+      $arenaname_check = array_search($arenaid, array_column($obj_decode['data']['arenas'],'arenaId')); 
+      $arenaname = $obj_decode['data']['arenas'][$arenaname_check]['name'];
+      
+      $sort0 = $obj_results['data'][$i]['playerIds'][0];
+      $name0_check = array_search($sort0, array_column($obj_decode['data']['players'],'playerId'));
+      $name0 = $obj_decode['data']['players'][$name0_check]['name'];
+      $results0_check = array_search($sort0, array_column($obj_results['data'][$i]['resultPositions'],'playerIds'));
+      $score0 = $obj_results['data'][$i]['resultScores'][0];
+      
+      $sort1 = $obj_results['data'][$i]['playerIds'][1];
+      $name1_check = array_search($sort1, array_column($obj_decode['data']['players'],'playerId'));
+      $name1 = $obj_decode['data']['players'][$name1_check]['name'];
+      $results1_check = array_search($sort1, array_column($obj_results['data'][$i]['resultPositions'],'playerIds'));
+      $score1 = $obj_results['data'][$i]['resultScores'][1];
+      
+      $sort2 = $obj_results['data'][$i]['playerIds'][2];
+      $name2_check = array_search($sort2, array_column($obj_decode['data']['players'],'playerId'));
+      $name2 = $obj_decode['data']['players'][$name2_check]['name'];
+      $results2_check = array_search($sort2, array_column($obj_results['data'][$i]['resultPositions'],'playerIds'));
+      $score2 = $obj_results['data'][$i]['resultScores'][2];
+
+      $sort3 = $obj_results['data'][$i]['playerIds'][3];
+      if(empty($sort3)){
+        $name3_check = '';
+        $name3 = '';
+        $results3_check = '';
+        $score3 = 0;
+
+      } else {
+        $name3_check = array_search($sort3, array_column($obj_decode['data']['players'],'playerId'));
+        $name3 = $obj_decode['data']['players'][$name3_check]['name'];
+        $results3_check = array_search($sort3, array_column($obj_results['data'][$i]['resultPositions'],'playerIds'));
+        $score3 = $obj_results['data'][$i]['resultScores'][3];  
+      }
+
+
       if(empty($name3)){
         $groupmembers = 3;
         $score3 = 0;
       } else {
         $groupmembers = 4;
       }
+
+
       $teamgamescore = floor($score0 + $score1 + $score2 + $score3) / $groupmembers;
 
       $groupname = $name0 . ' / ' . $name1 . ' / ' . $name2  . ' / ' . $name3;
