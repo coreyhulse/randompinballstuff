@@ -61,6 +61,14 @@ $fontsize = $_GET['fontsize'];
 $fontsize = 24;
 }
 
+// Default mode is team, which means every team plays each game.  If mode is 'game', then it'll take the games per round
+
+if (isset($_GET['mode'])) {
+    $mode = $_GET['mode'];
+    } else {
+    $mode = 'team';
+    }
+
 $tournament = $obj['data']['name'];
 $url_label = $obj['data']['tournamentId'];
 $games_per_round = $obj['data']['gamesPerRound'];
@@ -202,6 +210,13 @@ echo $tournament;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
+        .game_96400 { /* Avengers Infinity Quest */
+            background-image: url("images/avengers_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+			border-right: 1px solid #18181C !important;
+			background-size: auto 150%; 
+			/* background-position: center; */
+        }
         .game_32851 { /* Batman 66 */
             background-image: url("images/batman66_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
@@ -300,7 +315,7 @@ echo $tournament;
 			/* background-position: center; */
         }
         .game_136109 { /* JAWS LE */
-            background-image: url("images/jaws.jpg");
+            background-image: url("images/jaws_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
@@ -700,6 +715,15 @@ $points4total = $points4total + $points4;
 
 $gamecheck = $array_test[$i]['arenaname'];
 
+if($mode == 'game')
+{
+    $gamerowspan = $games_per_round;
+}
+else{
+    $gamerowspan = $igroup;
+}
+
+
 if($gamecheck !== $gamecheckprior)
 {
   $sectionbreak = "sectionBreak";
@@ -743,7 +767,7 @@ echo "<tr class='team" . " " . $sectionbreak . "'>";
 
 if($gamecheck !== $gamecheckprior)
 {
-echo "<td class='game_" . $array_test[$i]['arenaid'] . "' rowspan=" . $igroup . ">Game: " . $array_test[$i]['arenaname'] . "</td>";
+echo "<td class='game_" . $array_test[$i]['arenaid'] . "' rowspan=" . $gamerowspan . ">Game: " . $array_test[$i]['arenaname'] . "</td>";
 }
 echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['teamname'] . "</td>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
