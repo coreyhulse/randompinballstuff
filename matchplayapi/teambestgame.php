@@ -19,7 +19,7 @@ echo '<meta http-equiv="refresh" content="60">';
 
 ?>
 
-
+<!-- Default $mode=team, which means every team plays each game.  If $mode=game, then it'll take the games per round -->
 
 
 <?php
@@ -327,9 +327,16 @@ echo $tournament;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
-
-
         }
+        .game_153458 { /* Pulp Fiction */
+            background-image: url("images/pulp_translite.jpg");
+            color: rgba(255, 255, 255, 0.0) !important;
+			border-right: 1px solid #18181C !important;
+			background-size: auto 150%; 
+			/* background-position: center; */
+        }
+
+
         .rank {
             background: #2d2e36;
             text-align: center;
@@ -1084,6 +1091,6 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 </div>
 <!-- FOOTER AREA -->
 	
-  <div class="footer">Team Match Play v10.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+  <div class="footer">Team Match Play v11.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
 
 </body>
