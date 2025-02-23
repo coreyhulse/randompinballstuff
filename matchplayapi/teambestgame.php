@@ -195,7 +195,7 @@ echo $tournament;
         .team8_dark {
             background: rgba(204,204,204,0.60);
         }
-        .game_90485 { /* Alien */
+        .game_G4PBO { /* Alien - 90485*/
             background-image: url("images/alien_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
@@ -203,132 +203,111 @@ echo $tournament;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_86179 { /* Avengers Infinity Quest */
+        .game_Gj66P { /* Avengers Infinity Quest - 86179 & 96400*/
             background-image: url("images/avengers_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_96400 { /* Avengers Infinity Quest */
-            background-image: url("images/avengers_translite.jpg");
-            color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
-        }
-        .game_32851 { /* Batman 66 */
+        .game_GRoz4 { /* Batman 66 - 32851*/
             background-image: url("images/batman66_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_2513 { /* Fathom */
+        .game_GrPO3 { /* Fathom - 2513*/
             background-image: url("images/fathom_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
     		border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
 	    }
-        .game_2916 { /* Funhouse */
+        .game_G5Dz7 { /* Funhouse - 2916 & 86867 (2.0)*/
             background-image: url("images/funhouse_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_86867 { /* Funhouse 2.0 */
-            background-image: url("images/funhouse2_translite.jpg");
-            color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
-        }
-        .game_71810 { /* Jurassic Park Premium */
+        .game_GK17D { /* Jurassic Park Premium - 71810 & 96401*/
             background-image: url("images/jurassicpark_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_96401 { /* Jurassic Park Premium */
-            background-image: url("images/jurassicpark_translite.jpg");
-            color: rgba(255, 255, 255, 0.0) !important;
-			border-right: 1px solid #18181C !important;
-			background-size: auto 150%; 
-			/* background-position: center; */
-        }
-        .game_31874 { /* Metallica */
+        .game_GRBE4 { /* Metallica - 31874*/
             background-image: url("images/metallica_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_71811 { /* Quicksilver */
+        .game_GRBZl { /* Quicksilver - 71811*/
             background-image: url("images/quicksilver_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_2915 { /* The Simpsons Pinball Party */
+        .game_GRvBL { /* The Simpsons Pinball Party - 2915*/
             background-image: url("images/simpsons_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_2918 { /* The Simpsons Pinball Party */
+        .game_G5BLE { /* Theatre of Magic Party - 2918*/
             background-image: url("images/theatre_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_49946 { /* Wonka (LE) */
+        .game_GYWBZ { /* Wonka (LE) - 49946*/
             background-image: url("images/wonka_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_77943 { /* Godzilla (Pro) */
+        .game_GweeP { /* Godzilla (Pro) - 77943*/
             background-image: url("images/godzilla_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_110185 { /* Godfather LE */
+        .game_Gd2ox { /* Godfather LE - 110185*/
             background-image: url("images/godfather_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_22370 { /* Firepower LE */
+        .game_G5VDd { /* Firepower - 22370*/
             background-image: url("images/firepower_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_136109 { /* JAWS LE */
+        .game_GLWll { /* JAWS LE - 136109*/
             background-image: url("images/jaws_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_79237 { /* Mandalorian LE */
+        .game_GBLLP { /* Mandalorian LE - 79237*/
             background-image: url("images/mando_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
 			background-size: auto 150%; 
 			/* background-position: center; */
         }
-        .game_153458 { /* Pulp Fiction */
+        .game_GoEkx { /* Pulp Fiction - 153458*/
             background-image: url("images/pulp_translite.jpg");
             color: rgba(255, 255, 255, 0.0) !important;
 			border-right: 1px solid #18181C !important;
@@ -517,6 +496,7 @@ while($i <= $countcheckcounter){
       } else {$groupcompletegamecount = 0;}
       $arenaname_check = array_search($arenaid, array_column($obj_decode['data']['arenas'],'arenaId')); 
       $arenaname = $obj_decode['data']['arenas'][$arenaname_check]['name'];
+      $opdbID = substr($obj_decode['data']['arenas'][$arenaname_check]['opdbId'],0,5);
       
       $sort0 = $obj_results['data'][$i]['playerIds'][0];
       $name0_check = array_search($sort0, array_column($obj_decode['data']['players'],'playerId'));
@@ -618,6 +598,7 @@ while($i <= $countcheckcounter){
       array_push($array_test,
         array('namecheck' => $namecheck,
               'arenaid' => $arenaid,
+              'opdbID' => $opdbID,
               'arenaname_check' => $arenaname_check,
               'arenaname' => $arenaname,
               'name1' => $name0,
@@ -774,7 +755,7 @@ echo "<tr class='team" . " " . $sectionbreak . "'>";
 
 if($gamecheck !== $gamecheckprior)
 {
-echo "<td class='game_" . $array_test[$i]['arenaid'] . "' rowspan=" . $gamerowspan . ">Game: " . $array_test[$i]['arenaname'] . "</td>";
+echo "<td class='game_" . $array_test[$i]['opdbID'] . "' rowspan=" . $gamerowspan . ">Game: " . $array_test[$i]['arenaname'] . "</td>";
 }
 echo "<td class='team" . $array_test[$i]['groupnumber'] . "'>" . $array_test[$i]['teamname'] . "</td>";
 echo "<td class='rank'>" . $gameranktable . "</td>";
