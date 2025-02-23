@@ -1072,6 +1072,6 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 </div>
 <!-- FOOTER AREA -->
 	
-  <div class="footer">Team Match Play v11.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+  <div class="footer">Team Match Play v12.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
 
 </body>
