@@ -1,0 +1,35 @@
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  file_get_contents(https://app.matchplay.events/api/tournaments/251548/standings): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 52
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key 3 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 523
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key 3 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 523
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key 3 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 523
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key 3 in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 523
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined variable $gamecheckprior in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 719
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined variable $gamecheckprior in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 760
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined variable $tablecolor in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 979
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Daniel Gilbert|2" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Matt Strzelecki|1" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Jay Robinson|4" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Brandon Service|3" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Mark Miles|4" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Mike Kalinowski|3" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Ben Lewis|2" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Tony Makowski|4" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Brian Service|1" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Michael Reimer|2" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Dennis Gilbert|3" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Nathaniel Gibson|1" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Tori Clipp|2" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "John Shehan|3" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "Lisa McKale|1" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:22 America/Boise] PHP Warning:  Undefined array key "|4" in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 1016
+[11-Jun-2026 07:09:42 America/Boise] PHP Warning:  file_get_contents(https://app.matchplay.events/api/tournaments/251548/games): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 49
+[11-Jun-2026 07:09:43 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 75
+[11-Jun-2026 07:09:43 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 75
+[11-Jun-2026 07:09:43 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 75
+[11-Jun-2026 07:09:43 America/Boise] PHP Warning:  Trying to access array offset on value of type null in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 443
+[11-Jun-2026 07:09:43 America/Boise] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php:443
+Stack trace:
+#0 {main}
+  thrown in /home3/hulseweb/public_html/pinballspinner/matchplayapi/teambestgame.php on line 443

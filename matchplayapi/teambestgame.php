@@ -81,6 +81,10 @@ $round_status = $obj_results['data'][0]['status'];
 echo $tournament;
 ?> MatchPlay Team Best Game</title>
 
+<!-- CSS
+�������������������������������������������������� -->
+<link rel="stylesheet" href="https://pinballspinner.com/links/opdb_group_backglasses.css">
+
 <!-- Stylesheet -->
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
@@ -1072,6 +1076,6 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 </div>
 <!-- FOOTER AREA -->
 	
-  <div class="footer">Team Match Play v12.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+  <div class="footer">Team Match Play v13.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
 
 </body>
