@@ -24,6 +24,34 @@ echo '<meta http-equiv="refresh" content="60">';
 
 <?php
 
+// -------------------------------------------------------
+// Helper: fetch a MatchPlay API URL with Bearer token auth
+// -------------------------------------------------------
+function matchplay_fetch(string $url): ?array {
+    $token = '1008|GDeJMZJ88XfbsdKYKmmz5xuDSYNWbOX0JKVcnKh7f7cb424e'; // <-- paste your token here
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . $token,
+            'Accept: application/json',
+        ],
+        CURLOPT_TIMEOUT        => 10,
+    ]);
+
+    $response  = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($http_code !== 200 || $response === false) {
+        error_log("MatchPlay API error: HTTP $http_code for $url");
+        return null;
+    }
+
+    return json_decode($response, true);
+}
+
 // Parameterize the MatchPlay link if provided in the URL
 
 if (isset($_GET['matchplaylink'])) {
@@ -42,15 +70,22 @@ $notice = "<div class='errorNotice'><p>No MatchPlay link provided.</p><p>The URL
 // Query the various JSON blobs from MatchPlay
 // Documentation: https://matchplay.events/api-docs/#/Matchplay
 
-$json = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '?includePlayers=true&includeArenas=true');
-$obj = json_decode($json,TRUE);
-$obj_decode = json_decode($json, TRUE);
+//$json = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '?includePlayers=true&includeArenas=true');
+//$obj = json_decode($json,TRUE);
+//$obj_decode = json_decode($json, TRUE);
 
-$json_results = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/games');
-$obj_results = json_decode($json_results, TRUE);
+//$json_results = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/games');
+//$obj_results = json_decode($json_results, TRUE);
 
-$json_standings = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/standings');
-$obj_standings = json_decode($json_standings, TRUE);
+//$json_standings = file_get_contents('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/standings');
+//$obj_standings = json_decode($json_standings, TRUE);
+
+$obj           = matchplay_fetch('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '?includePlayers=true&includeArenas=true');
+$obj_decode    = $obj; // same data, no need to fetch twice
+
+$obj_results   = matchplay_fetch('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/games');
+
+$obj_standings = matchplay_fetch('https://app.matchplay.events/api/tournaments/' . $matchplaylink . '/standings');
 
 
 // Default font size in the CSS to 24px, or override it.
@@ -1076,6 +1111,6 @@ $array_player[$player_name] = $gamepointstable + $player_points;
 </div>
 <!-- FOOTER AREA -->
 	
-  <div class="footer">Team Match Play v13.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
+  <div class="footer">Team Match Play v14.0.0 | Data: <a href='http://matchplay.events'>matchplay.events</a> | Scoreboard: <a href='http://www.pinballspinner.com'>pinballspinner.com</a> | CSS: <a href='http://www.markrmiles.com/'>markrmiles.com</a></div>	
 
 </body>
